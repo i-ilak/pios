@@ -1,17 +1,18 @@
-add_subdirectory(src/common)
-
+# Set variables
 set(KERNEL kernel7)
 set(CPU arm1176jzf-s)
 
 set(BUILD_DIR ${PROJECT_SOURCE_DIR}/build/bin)
 set(ARCH_DIR ${PROJECT_SOURCE_DIR}/arch/armv6)
 
+add_subdirectory(src/common)
+
 # If build with Makefiles, make output verbose.
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${PROJECT_SOURCE_DIR}/arch/armv6/linker.ld")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${ARCH_DIR}/linker.ld")
 
 # Create minimal ELF binary from sources.
 add_executable(${KERNEL}.elf src/kernel/kernel.c ${ARCH_DIR}/boot.S)
