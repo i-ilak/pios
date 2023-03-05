@@ -1,3 +1,5 @@
+add_subdirectory(src/common)
+
 set(KERNEL kernel7)
 set(CPU arm1176jzf-s)
 
@@ -16,6 +18,7 @@ set_target_properties(${KERNEL}.elf PROPERTIES LINK_FLAGS "-nostdlib -nostartfil
 set_target_properties(${KERNEL}.elf PROPERTIES COMPILE_FLAGS "-mcpu=${CPU} -Wall -O2 -ffreestanding -nostdlib -nostartfiles" )
 
 # Need to add the utils library
+target_link_libraries(${KERNEL}.elf PRIVATE common)
 # target_link_libraries(${KERNEL}.elf PRIVATE utils)
 
 # Generates the binary with objcopy.
