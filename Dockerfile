@@ -42,6 +42,7 @@ WORKDIR /home/piOS
 COPY . .
 
 FROM base AS build
+RUN rm -rf ./${BUILD_DIR}
 RUN cmake -G Ninja -B ./${BUILD_DIR} -S .
 RUN cmake --build ./${BUILD_DIR}
 

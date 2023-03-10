@@ -1,5 +1,8 @@
 cmake_minimum_required (VERSION 3.20)
 
+set(CMAKE_SYSTEM_NAME Linux)
+set(CMAKE_SYSTEM_PROCESSOR ARM)
+
 # We are using this inside of a docker container that is cross-compiling and we
 # thus want to skip any test, since they will inevitably fail
 SET (CMAKE_C_COMPILER_WORKS 1)
