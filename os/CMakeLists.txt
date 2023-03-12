@@ -14,14 +14,22 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${ARCH_DIR}/linker.ld")
 
+set(SOURCES
+    src/kernel/uart.c 
+    src/kernel/mmio.c 
+    src/kernel/kernel.c 
+    ${ARCH_DIR}/boot.S
+)
+
 # Create minimal ELF binary from sources.
-add_executable(${KERNEL}.elf src/kernel/kernel.c ${ARCH_DIR}/boot.S)
+add_executable(${KERNEL}.elf ${SOURCES})
 
 # The compiler must make no assumptions about the build.
 set_target_properties(${KERNEL}.elf PROPERTIES LINK_FLAGS "-nostdlib -nostartfiles")
 set_target_properties(${KERNEL}.elf PROPERTIES COMPILE_FLAGS "-mcpu=${CPU} -Wall -O2 -ffreestanding -nostdlib -nostartfiles")
 
 # Need to add the utils library
+target_include_directories(${KERNEL}.elf PUBLIC include)
 target_link_libraries(${KERNEL}.elf PRIVATE common)
 # target_link_libraries(${KERNEL}.elf PRIVATE utils)
 
