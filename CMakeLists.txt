@@ -4,7 +4,7 @@ set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_SYSTEM_PROCESSOR ARM)
 
 set(CMAKE_C_COMPILER "arm-none-eabi-gcc")
-set(CMAKE_C_COMPILER "arm-none-eabi-gcc")
+set(CMAKE_ASM_COMPILER "arm-none-eabi-gcc")
 
 # We are using this inside of a docker container that is cross-compiling and we
 # thus want to skip any test, since they will inevitably fail
