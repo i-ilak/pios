@@ -9,7 +9,7 @@
 #         - docker build -t $CI_REGISTRY_IMAGE .
 #         - docker push $CI_REGISTRY_IMAGE
 
-myapp:
+piOS:
     image: rushmash/gcc-arm-embedded-docker:latest
     stage: build
     script:
