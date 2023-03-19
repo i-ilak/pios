@@ -41,6 +41,8 @@ void uart_init()
 
 void uart_putc(unsigned char c)
 {
+	if(c == '\r')		// Might need to remove this on RPi.
+		c = '\n';		// On macOS necessary to get line breaks...
 	while (1) {
 		if (mmio_read(AUX_MU_LSR_REG) & (1 << 5))
 			break;
