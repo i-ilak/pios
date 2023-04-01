@@ -1,9 +1,9 @@
 #include "common/stdlib.h"
 #include "common/string.h"
 
-char* iota(int32_t value)
+char* iota(int value)
 {
-    int32_t i, sign;
+    int i, sign;
 
     /* Declare as static in order to return it */
     static char s[21];  // Biggest int, 10 digits long
@@ -33,9 +33,9 @@ char* iota(int32_t value)
 	return s;
 }
 
-int32_t atoi(const char* str)
+int atoi(const char* str)
 {
-    int32_t num = 0;
+    int num = 0;
 
     while ((*str != '\0') && (*str >= '0' && *str <= '9')) {
 		num = num * 10 + (*str - '0');

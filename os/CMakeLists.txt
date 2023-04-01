@@ -1,10 +1,3 @@
-# Set variables
-set(KERNEL kernel7)
-set(CPU arm1176jzf-s)
-
-set(BUILD_DIR ${PROJECT_SOURCE_DIR}/build/bin)
-set(ARCH_DIR ${PROJECT_SOURCE_DIR}/arch/armv6)
-
 add_subdirectory(src/common)
 
 # If build with Makefiles, make output verbose.
@@ -23,6 +16,20 @@ set(SOURCES
 
 # Create minimal ELF binary from sources.
 add_executable(${KERNEL}.elf ${SOURCES})
+
+if(${ARCH} STREQUAL "AARCH_32")
+    if(${MODEL} STREQUAL "MODEL_0")
+        target_compile_definitions(${KERNEL}.elf PUBLIC MODEL_0 AARCH_32)
+    elseif(${MODEL} STREQUAL "MODEL_2")
+        target_compile_definitions(${KERNEL}.elf PUBLIC MODEL_2 AARCH_32)
+    endif()
+elseif(${ARCH} STREQUAL "AARCH_64")
+    if(${MODEL} STREQUAL "MODEL_3")
+        target_compile_definitions(${KERNEL}.elf PUBLIC MODEL_3 AARCH_64)
+    elseif(${MODEL} STREQUAL "MODEL_4")
+        target_compile_definitions(${KERNEL}.elf PUBLIC MODEL_4 AARCH_64)
+    endif()
+endif()
 
 # The compiler must make no assumptions about the build.
 set_target_properties(${KERNEL}.elf PROPERTIES LINK_FLAGS "-nostdlib -nostartfiles")

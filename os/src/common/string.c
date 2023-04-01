@@ -25,7 +25,7 @@ void* memcpy(void* dest, const void* src, size_t n)
 	return dest;
 }
 
-uint32_t strlen(char* str)
+size_t strlen(const char* str)
 {
     const char* char_ptr;
 
@@ -34,7 +34,7 @@ uint32_t strlen(char* str)
     return (char_ptr-str);
 }
 
-int32_t strcmp(const char* s1, const char* s2)
+int strcmp(const char* s1, const char* s2)
 {
     while((*s1 != '\0') && (*s1 == *s2))
     {
@@ -79,7 +79,7 @@ char* strcat(char* dest, const char* src)
 
 void strrev(char* str)
 {
-    int32_t i, j;
+    int i, j;
     char tmp;
 
     for(i = 0, j=strlen(str); i < j; i++, j--)

@@ -1,8 +1,19 @@
+/** @file
+ * 	@brief AUX base adresses.
+ * 
+ * > The  Device  has  three  Auxiliary  peripherals:  One  mini  UART  and  two  SPI  masters.  
+ * > These three  peripheral  are  grouped  together  as  they  share  the same  area  in  the  peripheral register map and they share a common interrupt. 
+ * > Also all three are controlled by the auxiliary enable register. 
+ */
+
 #ifndef AUX_H
 #define AUX_H
 
 #include "gpio.h"
 
+/**
+ * @brief Enum containg all the relevant addresses. The offset is again the same for all RPi's, but the base address is not.
+ */
 enum
 {
 	AUX_BASE = (GPIO_BASE + 0x15000),

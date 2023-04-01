@@ -1,8 +1,16 @@
+/**
+ * @file
+ * @brief GIPO addresses for the different RPi's
+ */
+
 #ifndef GPIO_H
 #define GPIO_H
 
 #include "base.h"
 
+/**
+ * GPIO Pins available functionalities: 5 Alternative Functions, Input, Output.
+ */
 typedef enum {
 	GF_INPUT  = 0, /**< Input */
 	GF_OUTPUT = 1, /**< Output */
@@ -14,7 +22,9 @@ typedef enum {
 	GF_ALT_5  = 2, /**< Alternative Function 5 */
 } gpio_func;
 
-
+/**
+ * @brief GPIO registers addresses.
+ */
 enum
 {
 	GPIO_BASE = (MMIO_BASE + 0x200000),
@@ -58,8 +68,8 @@ enum
 	GPAREN1 = (GPIO_BASE + 0x80), /**< GPIO Pin Async. Rising Edge Detect 1 */
 	GPAFEN0 = (GPIO_BASE + 0x88), /**< GPIO Pin Async. Falling Edge Detect 0 */
 	GPAFEN1 = (GPIO_BASE + 0x8C), /**< GPIO Pin Async. Falling Edge Detect 1 */
-	
-    /* Broadcom 2835, 2836, 2837 specific GPIO registers */
+
+#if defined(MODEL_0) || defined(MODEL_2) || defined(MODEL_3)
 	/**
 	 * GPIO Pin Pull-up/down Enable
 	 * Controls actuation of pull up/down to ALL GPIO pins
@@ -71,6 +81,18 @@ enum
 	 */
 	GPPUDCLK0 = (GPIO_BASE + 0x98), /**< GPIO Pin Pull-up/down Enable Clocks 0 */
 	GPPUDCLK1 = (GPIO_BASE + 0x9C)  /**< GPIO Pin Pull-up/down Enable Clocks 1 */
+
+#elif defined(MODEL_4)
+	/*
+	 * GPIO Pull-up / Pull-down Registers 0,1,2,3
+	 * Controls the actuation of the internal pull-up/down resistors.
+	 * Reading these registers gives the current pull-state.
+	 */
+	GPIO_PUP_PDN_CNTRL_REG0 = (GPIO_BASE + 0xE4), /**< GPIO Pull-up / Pull-down Registers 0 */
+	GPIO_PUP_PDN_CNTRL_REG1 = (GPIO_BASE + 0xE8), /**< GPIO Pull-up / Pull-down Registers 1 */
+	GPIO_PUP_PDN_CNTRL_REG2 = (GPIO_BASE + 0xEC), /**< GPIO Pull-up / Pull-down Registers 2 */
+	GPIO_PUP_PDN_CNTRL_REG3 = (GPIO_BASE + 0xF0)  /**< GPIO Pull-up / Pull-down Registers 3 */
+#endif
 };
 
-#endif // GPIO_H
+#endif  //GPIO_H
