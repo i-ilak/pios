@@ -82,7 +82,7 @@ void strrev(char* str)
     int i, j;
     char tmp;
 
-    for(i = 0, j=strlen(str); i < j; i++, j--)
+    for(i = 0, j=strlen(str)-1; i < j; i++, j--)
     {
         tmp = str[i];
         str[i] = str[j];

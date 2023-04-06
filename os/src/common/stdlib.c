@@ -1,7 +1,7 @@
 #include "common/stdlib.h"
 #include "common/string.h"
 
-char* iota(int value)
+char* itoa(int value)
 {
     int i, sign;
 
