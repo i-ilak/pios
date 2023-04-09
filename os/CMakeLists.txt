@@ -8,6 +8,8 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${ARCH_DIR}/linker.ld")
 
 set(SOURCES
+    src/kernel/memory.c
+    src/kernel/atag.c
     src/kernel/uart.c 
     src/kernel/mmio.c 
     src/kernel/kernel.c 
