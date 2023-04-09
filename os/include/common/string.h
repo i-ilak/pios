@@ -9,18 +9,6 @@
 #include <stddef.h>         // defines NULL and size_t
 
 /**
- * @brief Fills the first @a n bytes of the memory area pointed to by @a s with the constant byte @a c.
- * @return A pointer to the memory area s.
- */
-void* memset(void* s, int c, size_t n);
-
-/**
- * @brief Copies @a n bytes from memory area @a src to memory area @a dest. The memory areas must not overlap.
- * @return A pointer to dest.
- */
-void* memcpy(void* dest, const void* src, size_t n);
-
-/**
  * @brief Calculates the length of the string pointed to by @a s, excluding the terminating null byte ('\0').
  * @param s A string pointer.
  * @return The number of bytes in the string pointed to by @a s.

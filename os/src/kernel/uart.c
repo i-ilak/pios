@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "common/string.h"
+#include "common/stdlib.h"
 
 #include "kernel/uart.h"
 #include "kernel/mmio.h"

@@ -6,6 +6,20 @@
 #ifndef STDLIB_H
 #define STDLIB_H
 
+#include <stddef.h>         // defines NULL and size_t
+
+/**
+ * @brief Fills the first @a n bytes of the memory area pointed to by @a s with the constant byte @a c.
+ * @return A pointer to the memory area s.
+ */
+void* memset(void* s, int c, size_t n);
+
+/**
+ * @brief Copies @a n bytes from memory area @a src to memory area @a dest. The memory areas must not overlap.
+ * @return A pointer to dest.
+ */
+void* memcpy(void* dest, const void* src, size_t n);
+
 /**
  * @brief int -> str(int) 
  * 
@@ -35,5 +49,14 @@ char* itoa(int value);
  * 	If no valid conversion could be performed, it returns zero.
  */
 int atoi(const char* str);
+
+
+/**
+ * @brief Zero out the section [dest, dest+bytes]
+ * 
+ * @param dest 
+ * @param bytes 
+ */
+void bzero(void * dest, int bytes);
 
 #endif // STDLIB_H

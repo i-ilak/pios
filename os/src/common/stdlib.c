@@ -44,3 +44,32 @@ int atoi(const char* str)
 
     return num;
 }
+
+void bzero(void * dest, int bytes) {
+    memset(dest, 0, bytes);
+}
+
+void* memset(void* s, int c, size_t n)
+{
+    unsigned char* dst = s;
+
+    while(n>0)
+    {
+        *dst = (unsigned char) c;
+        dst++;
+        n--;
+    }
+    return s;
+}
+
+void* memcpy(void* dest, const void* src, size_t n)
+{
+    char* d = (char *) dest;
+    const char *s = (const char*) src;
+
+    while (n > 0) {
+		*(d++) = *(s++);
+		n--;
+	}
+	return dest;
+}
