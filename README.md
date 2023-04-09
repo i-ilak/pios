@@ -14,6 +14,9 @@ Since I don't belive there is one perfect source for the relevant topics, I spen
     I changed some things were I found it appropritate, but at the end of the day I think Thanos did a great job and since I'm just trying to learn more about the subject, this project was a godsend!
     Also, a good chunk of the documentation is taken from him... Looking up all the GPIO-addresses etc. must have been a nightmare.
 * [Bare metal Raspberry Pi 3 tutorials (*Zoltan Baldaszti*)](https://github.com/bztsrc/raspi3-tutorial/): Really nice tutorial that introduces the basic ways of how HW and SW should interact with each other.
+* [Building an Operating System for the RaspberryPi (*Jake Sandler*)](https://jsandler18.github.io) Has a nice introduction to setting up dynamic memeory allocation for 32-bit systems, but seems a little bit light on some things.
+* [Raspberry Pi bare metal experiments (*Brian Widdas*)](https://github.com/brianwiddas/pi-baremetal)
+* [Learning operating system development using Linux kernel and Raspberry Pi (*Sergey Matyukevich*)](https://github.com/s-matyukevich/raspberry-pi-os) Lots of explenations about concepts related to OS developement using the Linux kernel and RPi OS as an example. Helps to understand some of the code out there doing things/solving things and seeing the bigger picture!
 
 ## How to build the project?
 As often with embedded projects, the toolchain hassle is real. The tricky part for this project is the compiler. Since we are writing code that is supposed to run on an ARM processor, you will need the corresponding compiler. All compilers to build for ARM CPU's can be found on [ARM's website](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads). You will most probably have to cross-compile (`x86`->`arm`) and you will need to be careful if you are compiling the kernel for a `32-bit` or a `64-bit` CPU (`arm-none-eabi` vs `aarch64-none-elf`).
@@ -23,27 +26,7 @@ Once you have all of this setup, you should be able to simple `cd` into the root
 cmake -G Ninja -B ./build -S .
 cmake --build ./build
 ```
-If you like to use docker, you can also use this minimal `Dockerfile` (for the `32-bit` version):
-```docker
-FROM rushmash/gcc-arm-embedded-docker:latest AS base
-
-ARG BUILD_DIR=build
-
-WORKDIR /home/piOS
-
-COPY . .
-
-FROM base AS build
-
-RUN rm -rf ./${BUILD_DIR}
-RUN cmake -G Ninja -B ./${BUILD_DIR} -S .
-RUN cmake --build ./${BUILD_DIR}
-
-FROM scratch AS export-stage
-COPY --from=build ./home/piOS/build/bin .
-
-```
-and run it via
+... or you can use Docker
 ```bash
 DOCKER_BUILDKIT=1 docker build --progress=plain -f Dockerfile --rm -t pi_os:latest . --output ${PATH_TO_WHERE_YOU_WANT_THE_ELF_AND_IMG}
 ```
