@@ -5,7 +5,7 @@
 
 // raspi model 1 does not have division instruction, so we need to define our own
 __inline__ uint32_t div(uint32_t dividend, uint32_t divisor) {
-#ifdef MODEL_1
+#if MODEL_0 || MODEL_1
     // Use long division, but in binary.  Copied from Stack overflow...
     uint32_t denom=divisor;
     uint32_t current = 1;
