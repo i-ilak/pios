@@ -3,10 +3,10 @@
  * @brief Some basic functions to manipulate strings.
  */
 
+#include <stddef.h>         // defines NULL and size_t
 #ifndef STRING_H
 #define STRING_H
 
-#include <stddef.h>         // defines NULL and size_t
 
 /**
  * @brief Calculates the length of the string pointed to by @a s, excluding the terminating null byte ('\0').

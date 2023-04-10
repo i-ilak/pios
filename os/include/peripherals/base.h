@@ -17,7 +17,7 @@
  * 
  */
 enum {
-#ifdef MODEL_0
+#if MODEL_0 || MODEL_1
 	/** For raspi 0,1 */
 	MMIO_BASE = 0x20000000
 #elif MODEL_2 || MODEL_3

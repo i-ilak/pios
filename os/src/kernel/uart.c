@@ -31,7 +31,7 @@ void uart_init()
 	/*
 	 * Disable pull up/down for pin 14 && 15
 	 */
-#if defined(MODEL_0) || defined(MODEL_2) || defined(MODEL_3)
+#if defined(MODEL_0) || defined(MODEL_1) || defined(MODEL_2) || defined(MODEL_3)
 	/* Disable pull up/down for all GPIO pins & delay for 150 cycles */
 	mmio_write(GPPUD, 0x00000000);
 	delay(150);
@@ -77,7 +77,7 @@ void uart_init()
 	mmio_write(AUX_MU_MCR_REG, 0);
 
 	/* Set baud rate to 115200 */
-#if defined(MODEL_0) || defined(MODEL_2) || defined(MODEL_3)
+#if defined(MODEL_0) || defined(MODEL_1) || defined(MODEL_2) || defined(MODEL_3)
 	/* System_Clock_Freq = 250 MHz */
 	/* (( System_Clock_Freq / baudrate_reg) / 8 ) - 1 */
 	/* ((250,000,000 / 115200) / 8) - 1 = 270 */

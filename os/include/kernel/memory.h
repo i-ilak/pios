@@ -1,9 +1,8 @@
-#ifndef MEMORY_H
-#define MEMORY_H
-
 #include <stdint.h>
 #include "atag.h"
 #include "list.h"
+#ifndef MEMORY_H
+#define MEMORY_H
 
 #define PAGE_SIZE 4096
 #define KERNEL_HEAP_SIZE (1024*1024)

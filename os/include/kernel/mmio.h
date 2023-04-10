@@ -4,7 +4,6 @@
  * 
  * Reading and writing from/to Memory Mapped IO.
  */
-
 #include <stdint.h>
 
 #ifndef MMIO_H

@@ -1,7 +1,8 @@
 macro(setup model path)
     set(BUILD_DIR ${path}/build/bin)
 
-    if(${model} STREQUAL "MODEL_0")
+    if(${model} STREQUAL "MODEL_0" 
+        OR ${model} STREQUAL "MODEL_1")
         set(CPU arm1176jzf-s)
         set(ARCH_DIR ${path}/arch/armv6)
     elseif(${model} STREQUAL "MODEL_2")
@@ -16,6 +17,7 @@ macro(setup model path)
     endif()
 
     if(${model} STREQUAL "MODEL_0"
+        OR ${model} STREQUAL "MODEL_1"
         OR ${model} STREQUAL "MODEL_2")
         setup_arch("32")
     else()
@@ -23,6 +25,22 @@ macro(setup model path)
     endif()
 
     set(MODEL ${model})
+
+    if(${ARCH} STREQUAL "AARCH_32")
+        if(${MODEL} STREQUAL "MODEL_0")
+            add_compile_definitions(MODEL_0 AARCH_32)
+        elseif(${MODEL} STREQUAL "MODEL_1")
+            add_compile_definitions(MODEL_1 AARCH_32)
+        elseif(${MODEL} STREQUAL "MODEL_2")
+            add_compile_definitions(MODEL_2 AARCH_32)
+        endif()
+    elseif(${ARCH} STREQUAL "AARCH_64")
+        if(${MODEL} STREQUAL "MODEL_3")
+            add_compile_definitions(MODEL_3 AARCH_64)
+        elseif(${MODEL} STREQUAL "MODEL_4")
+            add_compile_definitions(MODEL_4 AARCH_64)
+        endif()
+    endif()
 
 endmacro()
 

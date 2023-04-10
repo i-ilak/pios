@@ -8,6 +8,10 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${ARCH_DIR}/linker.ld")
 
 set(SOURCES
+    src/kernel/kerio.c
+    src/kernel/gpu.c
+    src/kernel/mailbox.c
+    src/kernel/framebuffer.c
     src/kernel/memory.c
     src/kernel/atag.c
     src/kernel/uart.c 
@@ -18,20 +22,6 @@ set(SOURCES
 
 # Create minimal ELF binary from sources.
 add_executable(${KERNEL}.elf ${SOURCES})
-
-if(${ARCH} STREQUAL "AARCH_32")
-    if(${MODEL} STREQUAL "MODEL_0")
-        target_compile_definitions(${KERNEL}.elf PUBLIC MODEL_0 AARCH_32)
-    elseif(${MODEL} STREQUAL "MODEL_2")
-        target_compile_definitions(${KERNEL}.elf PUBLIC MODEL_2 AARCH_32)
-    endif()
-elseif(${ARCH} STREQUAL "AARCH_64")
-    if(${MODEL} STREQUAL "MODEL_3")
-        target_compile_definitions(${KERNEL}.elf PUBLIC MODEL_3 AARCH_64)
-    elseif(${MODEL} STREQUAL "MODEL_4")
-        target_compile_definitions(${KERNEL}.elf PUBLIC MODEL_4 AARCH_64)
-    endif()
-endif()
 
 # The compiler must make no assumptions about the build.
 set_target_properties(${KERNEL}.elf PROPERTIES LINK_FLAGS "-nostdlib -nostartfiles")

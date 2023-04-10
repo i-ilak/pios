@@ -6,10 +6,9 @@
  * > Also all three are controlled by the auxiliary enable register. 
  */
 
+#include "gpio.h"
 #ifndef AUX_H
 #define AUX_H
-
-#include "gpio.h"
 
 /**
  * @brief Enum containg all the relevant addresses. The offset is again the same for all RPi's, but the base address is not.

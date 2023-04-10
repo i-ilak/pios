@@ -7,5 +7,5 @@ uint32_t get_mem_size(atag_t * tag) {
        }
        tag = (atag_t *)((uint32_t *)tag + tag->tag_size);  // Cast back to avoid compiler warning
    }
-   return 1024*1024*512;
+   return 0;
 }

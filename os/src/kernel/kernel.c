@@ -4,8 +4,10 @@
 #include "common/string.h"
 
 #include "kernel/memory.h"
-#include "kernel/uart.h"
+#include "kernel/kerio.h"
 #include "kernel/atag.h"
+#include "kernel/gpu.h"
+#include "kernel/uart.h"
 
 /*!
  * @brief Entry point for the kernel
@@ -21,14 +23,16 @@ void kernel_main(uint64_t dtb_ptr32, uint64_t x0, uint64_t x1, uint64_t x3)
 {
 
     mem_init((atag_t *)atags);
-    uart_init();
+    gpu_init();
 
-    uart_puts("Welcome to piOS!\n");
+    puts("Welcome to piOS!\n\n");
 
     uint32_t mem_size = get_mem_size((atag_t *)atags);
-    uart_puts(strcat("RAM size: ", itoa(mem_size/1024/1024)));
+    printf("RAM size: %d\n", mem_size/1024/1024);
+
+    puts("I han d Lea gern!");
     
     while(1) {
-        uart_putc(uart_getc());
+        putc(getc());
     }
 }

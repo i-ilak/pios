@@ -3,22 +3,33 @@
  * @brief Implement basic functionality of the stdint-C-library.
  */
 
+#include <stddef.h>         // defines NULL and size_t
+#include <stdint.h>
 #ifndef STDLIB_H
 #define STDLIB_H
 
-#include <stddef.h>         // defines NULL and size_t
+#define MIN(x,y) ((x < y ? x : y))
+#define MAX(x,y) ((x < y ? y : x))
+
+typedef struct divmod_result {
+    uint32_t div;
+    uint32_t mod;
+} divmod_t;
+
+divmod_t divmod(uint32_t dividend, uint32_t divisor);
+uint32_t div(uint32_t dividend, uint32_t divisor);
 
 /**
  * @brief Fills the first @a n bytes of the memory area pointed to by @a s with the constant byte @a c.
  * @return A pointer to the memory area s.
  */
-void* memset(void* s, int c, size_t n);
+void* memset(void * dest, int c, unsigned int bytes);
 
 /**
  * @brief Copies @a n bytes from memory area @a src to memory area @a dest. The memory areas must not overlap.
  * @return A pointer to dest.
  */
-void* memcpy(void* dest, const void* src, size_t n);
+void* memcpy(void * dest, const void * src, unsigned int bytes);
 
 /**
  * @brief int -> str(int) 
@@ -28,17 +39,8 @@ void* memcpy(void* dest, const void* src, size_t n);
  * @param value Value to be converted to a string.
  * @return A pointer to the resulting null-terminated string.
  */
-char* itoa(int value);
+char* itoa(int value, int base);
 
-/*
- * Converts an int to a null-terminated string using the specified base.
- * @param value Value to be converted to a string.
- * @param base Numerical base used to represent the value as a string.
- * Where 10 means decimal base, 16 hexadecimal, 8 octal, and 2 binary.
- * (Only base 10 supported for now)
- * @return A pointer to the resulting null-terminated string.
- */
-// char *itoa(int value, int base);
 
 /**
  * @brief str -> int 
@@ -48,7 +50,7 @@ char* itoa(int value);
  * @return The converted integral number as an int value.
  * 	If no valid conversion could be performed, it returns zero.
  */
-int atoi(const char* str);
+int atoi(char* str);
 
 
 /**

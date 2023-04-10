@@ -7,6 +7,9 @@ I don't really have a clear goal, but I'm using other peoples projects on the in
 
 [[_TOC_]]
 
+## ToDo
+[ ] Revist memory management... I think the code is a bit to simplisic (want to add virtual memory management.)
+
 ## Notes
 Since I don't belive there is one perfect source for the relevant topics, I spend a lot of time reading code from others.
 * [armOS (*Thanos Koutroubas*)](https://github.com/thanoskoutr/armOS): This project is pretty much where I want to be at the end (I guess), and its nice to see what will be necessary for this...

@@ -3,10 +3,9 @@
  * @brief GIPO addresses for the different RPi's
  */
 
+#include "base.h"
 #ifndef GPIO_H
 #define GPIO_H
-
-#include "base.h"
 
 /**
  * GPIO Pins available functionalities: 5 Alternative Functions, Input, Output.
@@ -69,7 +68,7 @@ enum
 	GPAFEN0 = (GPIO_BASE + 0x88), /**< GPIO Pin Async. Falling Edge Detect 0 */
 	GPAFEN1 = (GPIO_BASE + 0x8C), /**< GPIO Pin Async. Falling Edge Detect 1 */
 
-#if defined(MODEL_0) || defined(MODEL_2) || defined(MODEL_3)
+#if defined(MODEL_0) || defined(MODEL_1) || defined(MODEL_2) || defined(MODEL_3)
 	/**
 	 * GPIO Pin Pull-up/down Enable
 	 * Controls actuation of pull up/down to ALL GPIO pins

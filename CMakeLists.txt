@@ -1,7 +1,9 @@
 cmake_minimum_required (VERSION 3.17)
 
 include(cmake/target.cmake)
-setup("MODEL_0" ${CMAKE_CURRENT_SOURCE_DIR})
+setup("MODEL_1" ${CMAKE_CURRENT_SOURCE_DIR})
+message("Build Info:\n\t - Arch:\t${ARCH}\n\t - Model:\t${MODEL}")
+
 
 set(CMAKE_DEPENDS_USE_COMPILER ON)
 
