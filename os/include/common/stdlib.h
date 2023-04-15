@@ -23,13 +23,13 @@ uint32_t div(uint32_t dividend, uint32_t divisor);
  * @brief Fills the first @a n bytes of the memory area pointed to by @a s with the constant byte @a c.
  * @return A pointer to the memory area s.
  */
-void* memset(void * dest, int c, unsigned int bytes);
+void* memset(void * dest, int c, unsigned long bytes);
 
 /**
  * @brief Copies @a n bytes from memory area @a src to memory area @a dest. The memory areas must not overlap.
  * @return A pointer to dest.
  */
-void* memcpy(void * dest, const void * src, unsigned int bytes);
+void* memcpy(void * dest, const void * src, unsigned long bytes);
 
 /**
  * @brief int -> str(int) 
@@ -50,7 +50,7 @@ char* itoa(int value, int base);
  * @return The converted integral number as an int value.
  * 	If no valid conversion could be performed, it returns zero.
  */
-int atoi(char* str);
+int atoi(const char * num);
 
 
 /**
@@ -59,6 +59,6 @@ int atoi(char* str);
  * @param dest 
  * @param bytes 
  */
-void bzero(void * dest, int bytes);
+void bzero(void * dest, unsigned long bytes);
 
 #endif // STDLIB_H

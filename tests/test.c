@@ -3,14 +3,34 @@
 #include <setjmp.h>
 #include <cmocka.h>
 
-static void test_integers(void** state) {
-  assert_int_equal(1,1);
-}
+#include <stdio.h>
+
+#include "test_string.h"
+#include "test_stdlib.h"
+
 
 int main(int argc, char* argv[]) {
-  const struct CMUnitTest tests[] = {
-    cmocka_unit_test(test_integers),
+  const struct CMUnitTest tests_string[] = {
+    cmocka_unit_test(test_str_len),
+    cmocka_unit_test(test_str_compare),
+    cmocka_unit_test(test_str_copy),
+    cmocka_unit_test(test_str_concat),
+    cmocka_unit_test(test_str_reverse),
   };
 
-  return cmocka_run_group_tests(tests, NULL, NULL);
+  const struct CMUnitTest tests_stdlib[] = {
+    cmocka_unit_test(test_div),
+    cmocka_unit_test(test_divmod),
+    cmocka_unit_test(test_itoa),
+    cmocka_unit_test(test_atoi),
+    cmocka_unit_test(test_memset),
+    cmocka_unit_test(test_bzero),
+    cmocka_unit_test(test_memcpy),
+  };
+
+  int first = cmocka_run_group_tests(tests_string, NULL, NULL);
+  printf("\n");
+  int second = cmocka_run_group_tests(tests_stdlib, NULL, NULL);
+
+  return first && second;
 }

@@ -51,7 +51,7 @@ __inline__ divmod_t divmod(uint32_t dividend, uint32_t divisor) {
     return res;
 }
 
-void* memcpy(void * dest, const void * src, unsigned int bytes) {
+void* memcpy(void * dest, const void * src, unsigned long bytes) {
     char * d = dest;
     const char * s = src;
     while (bytes--) {
@@ -60,11 +60,11 @@ void* memcpy(void * dest, const void * src, unsigned int bytes) {
     return dest;
 }
 
-void bzero(void * dest, int bytes) {
+void bzero(void * dest, unsigned long bytes) {
     memset(dest, 0, bytes);
 }
 
-void* memset(void * dest, int c, unsigned int bytes) {
+void* memset(void * dest, int c, unsigned long bytes) {
     uint8_t * d = dest;
     while (bytes--) {
         *d++ = c;
@@ -86,6 +86,10 @@ char * itoa(int num, int base) {
     if (base == 10 && num < 0) {
         isneg = 1;
         num = -num;
+    } else if (base == 2 && num < 0) {
+        isneg = 1;
+        // Convert absolute value to two's complement
+        num = (~num) + 1;
     }
 
     i = (uint32_t) num;
@@ -96,9 +100,6 @@ char * itoa(int num, int base) {
        i = divmod_res.div;
     }
 
-    if (isneg)
-        intbuf[j++] = '-';
-
     if (base == 16) {
         intbuf[j++] = 'x';
         intbuf[j++] = '0';
@@ -108,6 +109,9 @@ char * itoa(int num, int base) {
         intbuf[j++] = 'b';
         intbuf[j++] = '0';
     }
+
+    if (isneg)
+        intbuf[j++] = '-';
 
     intbuf[j] = '\0';
     j--;
@@ -123,26 +127,28 @@ char * itoa(int num, int base) {
     return intbuf;
 }
 
-int atoi(char * num) {
-    int res = 0, power = 0, digit, i;
-    char * start = num;
+int atoi( const char* nptr )
+{
+    int result   = 0;
+    int position = 1;
 
-    // Find the end
-    while (*num >= '0' && *num <= '9') {
-        num++;     
+    const char* p = nptr;
+    while( *p )
+    {
+        ++p;
     }
-
-    num--;
-
-    while (num != start) {
-        digit = *num - '0'; 
-        for (i = 0; i < power; i++) {
-            digit *= 10;
+    for( --p; p >= nptr; p-- )
+    {
+        if( *p < 0x30 || *p > 0x39 )
+        {
+            break;
         }
-        res += digit;
-        power++;
-        num--;
+        else
+        {
+            result += (position) * (*p - 0x30);
+            position *= 10;
+        }
     }
-
-    return res;
+    result = ((nptr[0] == '-')? -result : result);
+    return result;
 }
