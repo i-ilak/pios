@@ -1,6 +1,7 @@
 #include "kernel/memory.h"
 #include "kernel/atag.h"
 #include "common/stdlib.h"
+#include "kernel/kerio.h"
 #include <stdint.h>
 #include <stddef.h>
 
@@ -41,6 +42,7 @@ void mem_init(atag_t * atags) {
 
     // Get the total number of pages
     mem_size = get_mem_size(atags);
+
     num_pages = mem_size / PAGE_SIZE;
 
     // Allocate space for all those pages' metadata.  Start this block just after the kernel image is finished

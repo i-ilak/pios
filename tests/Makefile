@@ -10,6 +10,7 @@ INC_DIR = ../os/include
 
 KER_SRC = ../os/src/kernel
 COMMON_SRC = ../os/src/common
+TEST_SRC = ./src
 
 KERNEL_VERSION = 0.1.0
 
@@ -33,19 +34,35 @@ $(BUILD_DIR)/%_c.o: $(COMMON_SRC)/%.c
 	mkdir -p $(@D)
 	clang $(SFLAGS) $(CFLAGS) -I$(INC_DIR) -DAARCH_32 -DMODEL_1 -c $< -o $@
 
+## Compile all test-dependencies
+$(BUILD_DIR)/%_c.o: ${TEST_SRC}/%.c
+	mkdir -p $(@D)
+	clang $(SFLAGS) $(CFLAGS) -I$(INC_DIR) -I/System/Volumes/Data/opt/homebrew/Cellar/cmocka/1.1.7/include -I${TEST_SRC}/.. -c $< -o $@
+	
 ## Find all object files (from corresponding C, asm files)
 ASM_FILES = $(wildcard $(ARCH_DIR)/*.S)
 KER_C_FILES = $(wildcard $(KER_SRC)/*.c)
 COMMON_C_FILES = $(wildcard $(COMMON_SRC)/*.c)
+TEST_C_FILES = $(wildcard $(TEST_SRC)/*.c)
 
 OBJ_FILES = $(ASM_FILES:$(ARCH_DIR)/%.S=$(BUILD_DIR)/%_s.o)
 OBJ_FILES += $(KER_C_FILES:$(KER_SRC)/%.c=$(BUILD_DIR)/%_c.o)
 OBJ_FILES += $(COMMON_C_FILES:$(COMMON_SRC)/%.c=$(BUILD_DIR)/%_c.o)
+OBJ_FILES += $(TEST_C_FILES:$(TEST_SRC)/%.c=$(BUILD_DIR)/%_c.o)
 
 ## Link all object files and create final image
 build: $(OBJ_FILES)
-	clang -o build/test.o -c test.c -I/System/Volumes/Data/opt/homebrew/Cellar/cmocka/1.1.7/include 
-	clang -o build/test build/test.o build/string_c.o build/stdlib_c.o -L/System/Volumes/Data/opt/homebrew/Cellar/cmocka/1.1.7/lib -lcmocka
+	clang -o build/test.o -c test.c -I/System/Volumes/Data/opt/homebrew/Cellar/cmocka/1.1.7/include -Iinclude
+	clang -o build/test \
+					build/test.o \
+					build/string_c.o \
+					build/stdlib_c.o \
+					build/atag_c.o \
+					build/test_string_c.o \
+					build/test_stdlib_c.o \
+					build/test_atags_c.o \
+					-L/System/Volumes/Data/opt/homebrew/Cellar/cmocka/1.1.7/lib \
+					-lcmocka
 
 # Clean rules
 clean:

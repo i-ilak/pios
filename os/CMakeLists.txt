@@ -37,7 +37,7 @@ add_custom_command(
     OUTPUT ${KERNEL}.img
     DEPENDS ${KERNEL}.elf
     COMMENT "Creating IMG-file form ELF-file"
-    COMMAND ${CMAKE_OBJCOPY} ARGS -O binary ${BUILD_DIR}/${KERNEL}.elf ${BUILD_DIR}/${KERNEL}.img
+    COMMAND ${CMAKE_OBJCOPY} ARGS -O binary ${BUILD_DIR}/${KERNEL}.elf ${BUILD_DIR}/${KERNEL}.img  && mv ${BUILD_DIR}/${KERNEL}.img ${PROJECT_SOURCE_DIR}/export/
 )
 
 # Bind above objcopy custom command with `kernel_img` target.
