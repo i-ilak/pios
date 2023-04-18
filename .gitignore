@@ -1,4 +1,5 @@
 .DS_Store
+cmake/copy_img_to_sd.sh
 
 *.img
 *.elf
