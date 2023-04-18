@@ -21,32 +21,32 @@ void kernel_main(uint32_t r0, uint32_t arm_m_type, uint32_t atags)
 void kernel_main(uint64_t dtb_ptr32, uint64_t x0, uint64_t x1, uint64_t x3)
 #endif
 {
-  (void)r0;
-  (void)arm_m_type;
+    (void)r0;
+    (void)arm_m_type;
 
-  // assume if atags not specified then they are at 0x100
-  if(atags == 0x0)
-    atags = 0x100;
+    // assume if atags not specified then they are at 0x100
+    if(atags == 0x0)
+        atags = 0x100;
 
-  mem_init((atag_t *)atags);
-  // uart_init();
-  gpu_init();
+    mem_init((atag_t *)atags);
+    // uart_init();
+    gpu_init();
 
-  puts("Welcome to piOS!\n----------------\n\n");
+    puts("Welcome to piOS!\n----------------\n\n");
 
-  uint32_t mem_size = get_mem_size((atag_t *)atags);
-  printf("RAM size:     %d MB\n\n", mem_size / 1024 / 1024);
+    uint32_t mem_size = get_mem_size((atag_t *)atags);
+    printf("RAM size:     %d MB\n\n", mem_size / 1024 / 1024);
 
 #ifdef AARCH_32
-  printf("Architecture: AARCH_%d\n\n", 32);
+    printf("Architecture: AARCH_%d\n\n", 32);
 #else
-  printf("Architecture: AARCH_%d\n\n", 64);
+    printf("Architecture: AARCH_%d\n\n", 64);
 #endif
 
-  print_atags(atags);
+    print_atags(atags);
 
-  while(1)
-    {
-      putc(getc());
-    }
+    while(1)
+        {
+            putc(getc());
+        }
 }

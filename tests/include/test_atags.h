@@ -8,6 +8,6 @@
 
 #include <stdlib.h>
 
-void test_atags(void** state);
+void test_atags(void **state);
 
 #endif // TEST_ATAGS_H

@@ -8,10 +8,12 @@
  */
 enum
 {
-	MBOX_BASE    = (MMIO_BASE + 0xB880), /**< The base address for Mailbox registers */
-	MBOX_READ    = (MBOX_BASE + 0x00),   /**< Reads messages from the GPU */
-	MBOX_STATUS  = (MBOX_BASE + 0x18),   /**< Status for READ and WRITE registers */
-	MBOX_WRITE   = (MBOX_BASE + 0x20)    /**< Writes messages to the GPU */
+    MBOX_BASE
+    = (MMIO_BASE + 0xB880), /**< The base address for Mailbox registers */
+    MBOX_READ = (MBOX_BASE + 0x00), /**< Reads messages from the GPU */
+    MBOX_STATUS
+    = (MBOX_BASE + 0x18),           /**< Status for READ and WRITE registers */
+    MBOX_WRITE = (MBOX_BASE + 0x20) /**< Writes messages to the GPU */
 };
 
 #endif

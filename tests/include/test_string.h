@@ -6,14 +6,14 @@
 #include <setjmp.h>
 #include <cmocka.h>
 
-void test_str_len(void** state);
+void test_str_len(void **state);
 
-void test_str_compare(void** state);
+void test_str_compare(void **state);
 
-void test_str_copy(void** state);
+void test_str_copy(void **state);
 
-void test_str_concat(void** state);
+void test_str_concat(void **state);
 
-void test_str_reverse(void** state);
+void test_str_reverse(void **state);
 
 #endif // TEST_STRING_H
