@@ -106,18 +106,18 @@ typedef struct
 static uint32_t get_value_buffer_len(property_message_tag_t *tag)
 {
     switch(tag->proptag)
-        {
-        case FB_ALLOCATE_BUFFER:
-        case FB_GET_PHYSICAL_DIMENSIONS:
-        case FB_SET_PHYSICAL_DIMENSIONS:
-        case FB_GET_VIRTUAL_DIMENSIONS:
-        case FB_SET_VIRTUAL_DIMENSIONS: return 8;
-        case FB_GET_BITS_PER_PIXEL:
-        case FB_SET_BITS_PER_PIXEL:
-        case FB_GET_BYTES_PER_ROW: return 4;
-        case FB_RELESE_BUFFER:
-        default: return 0;
-        }
+    {
+    case FB_ALLOCATE_BUFFER:
+    case FB_GET_PHYSICAL_DIMENSIONS:
+    case FB_SET_PHYSICAL_DIMENSIONS:
+    case FB_GET_VIRTUAL_DIMENSIONS:
+    case FB_SET_VIRTUAL_DIMENSIONS: return 8;
+    case FB_GET_BITS_PER_PIXEL:
+    case FB_SET_BITS_PER_PIXEL:
+    case FB_GET_BYTES_PER_ROW: return 4;
+    case FB_RELESE_BUFFER:
+    default: return 0;
+    }
 }
 
 int send_messages(property_message_tag_t *tags)
@@ -128,9 +128,9 @@ int send_messages(property_message_tag_t *tags)
 
     // Calculate the sizes of each tag
     for(i = 0; tags[i].proptag != NULL_TAG; i++)
-        {
-            bufsize += get_value_buffer_len(&tags[i]) + 3 * sizeof(uint32_t);
-        }
+    {
+        bufsize += get_value_buffer_len(&tags[i]) + 3 * sizeof(uint32_t);
+    }
 
     // Add the buffer size, buffer request/response code and buffer end tag sizes
     bufsize += 3 * sizeof(uint32_t);
@@ -148,14 +148,14 @@ int send_messages(property_message_tag_t *tags)
 
     // Copy the messages into the buffer
     for(i = 0, bufpos = 0; tags[i].proptag != NULL_TAG; i++)
-        {
-            len = get_value_buffer_len(&tags[i]);
-            msg->tags[bufpos++] = tags[i].proptag;
-            msg->tags[bufpos++] = len;
-            msg->tags[bufpos++] = 0;
-            memcpy(msg->tags + bufpos, &tags[i].value_buffer, len);
-            bufpos += len / 4;
-        }
+    {
+        len = get_value_buffer_len(&tags[i]);
+        msg->tags[bufpos++] = tags[i].proptag;
+        msg->tags[bufpos++] = len;
+        msg->tags[bufpos++] = 0;
+        memcpy(msg->tags + bufpos, &tags[i].value_buffer, len);
+        bufpos += len / 4;
+    }
 
     msg->tags[bufpos] = 0;
 
@@ -166,25 +166,25 @@ int send_messages(property_message_tag_t *tags)
     mail = mailbox_read(PROPERTY_CHANNEL);
 
     if(msg->req_res_code == REQUEST)
-        {
-            kfree(msg);
-            return 1;
-        }
+    {
+        kfree(msg);
+        return 1;
+    }
     // Check the response code
     if(msg->req_res_code == RESPONSE_ERROR)
-        {
-            kfree(msg);
-            return 2;
-        }
+    {
+        kfree(msg);
+        return 2;
+    }
 
     // Copy the tags back into the array
     for(i = 0, bufpos = 0; tags[i].proptag != NULL_TAG; i++)
-        {
-            len = get_value_buffer_len(&tags[i]);
-            bufpos += 3; // skip over the tag bookkepping info
-            memcpy(&tags[i].value_buffer, msg->tags + bufpos, len);
-            bufpos += len / 4;
-        }
+    {
+        len = get_value_buffer_len(&tags[i]);
+        bufpos += 3; // skip over the tag bookkepping info
+        memcpy(&tags[i].value_buffer, msg->tags + bufpos, len);
+        bufpos += len / 4;
+    }
 
     kfree(msg);
     return 0;
@@ -206,9 +206,9 @@ int framebuffer_init(void)
 
     // Send over the initialization
     if(send_messages(tags) != 0)
-        {
-            return -1;
-        }
+    {
+        return -1;
+    }
 
     fbinfo.width = tags[0].value_buffer.fb_screen_size.width;
     fbinfo.height = tags[0].value_buffer.fb_screen_size.height;
@@ -226,9 +226,9 @@ int framebuffer_init(void)
     tags[1].proptag = NULL_TAG;
 
     if(send_messages(tags) != 0)
-        {
-            return -1;
-        }
+    {
+        return -1;
+    }
 
     fbinfo.buf = tags[0].value_buffer.fb_allocate_res.fb_addr;
     fbinfo.buf_size = tags[0].value_buffer.fb_allocate_res.fb_size;

@@ -13,10 +13,10 @@ size_t strlen(const char *str)
 int strcmp(const char *s1, const char *s2)
 {
     while((*s1 != '\0') && (*s1 == *s2))
-        {
-            s1++;
-            s2++;
-        }
+    {
+        s1++;
+        s2++;
+    }
 
     /* Return the ASCII difference after convert. char* to unsigned char* */
     return *(const unsigned char *)s1 - *(const unsigned char *)s2;
@@ -30,9 +30,9 @@ char *strcpy(char *dest, const char *src)
     char *tmp = dest;
 
     while(*src != '\0')
-        {
-            *(tmp++) = *(src++);
-        }
+    {
+        *(tmp++) = *(src++);
+    }
 
     *tmp = '\0';
 
@@ -60,9 +60,9 @@ void strrev(char *str)
     char tmp;
 
     for(i = 0, j = strlen(str) - 1; i < j; i++, j--)
-        {
-            tmp = str[i];
-            str[i] = str[j];
-            str[j] = tmp;
-        }
+    {
+        tmp = str[i];
+        str[i] = str[j];
+        str[j] = tmp;
+    }
 }

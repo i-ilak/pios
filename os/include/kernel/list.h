@@ -72,9 +72,9 @@
         node->next##nodeType = NULL;                                          \
         list->size += 1;                                                      \
         if(list->head == NULL)                                                \
-            {                                                                 \
-                list->head = node;                                            \
-            }                                                                 \
+        {                                                                     \
+            list->head = node;                                                \
+        }                                                                     \
     }                                                                         \
                                                                               \
     void push_##nodeType##_list(nodeType##_list_t *list,                      \
@@ -85,9 +85,9 @@
         list->head = node;                                                    \
         list->size += 1;                                                      \
         if(list->tail == NULL)                                                \
-            {                                                                 \
-                list->tail = node;                                            \
-            }                                                                 \
+        {                                                                     \
+            list->tail = node;                                                \
+        }                                                                     \
     }                                                                         \
                                                                               \
     struct nodeType *peek_##nodeType##_list(nodeType##_list_t *list)          \
@@ -102,9 +102,9 @@
         list->head->prev##nodeType = NULL;                                    \
         list->size -= 1;                                                      \
         if(list->head == NULL)                                                \
-            {                                                                 \
-                list->tail = NULL;                                            \
-            }                                                                 \
+        {                                                                     \
+            list->tail = NULL;                                                \
+        }                                                                     \
         return res;                                                           \
     }                                                                         \
                                                                               \

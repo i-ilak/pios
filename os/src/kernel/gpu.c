@@ -23,45 +23,45 @@ void gpu_putc(char c)
 
     // shift everything up one row
     if(fbinfo.chars_y >= num_rows)
-        {
-            // Copy a whole character row into the one above it
-            for(i = 0; i < num_rows - 1; i++)
-                memcpy(fbinfo.buf + fbinfo.pitch * i * CHAR_HEIGHT,
-                       fbinfo.buf + fbinfo.pitch * (i + 1) * CHAR_HEIGHT,
-                       fbinfo.pitch * CHAR_HEIGHT);
-            // zero out the last row
-            bzero(fbinfo.buf + fbinfo.pitch * i * CHAR_HEIGHT,
-                  fbinfo.pitch * CHAR_HEIGHT);
-            fbinfo.chars_y--;
-        }
+    {
+        // Copy a whole character row into the one above it
+        for(i = 0; i < num_rows - 1; i++)
+            memcpy(fbinfo.buf + fbinfo.pitch * i * CHAR_HEIGHT,
+                   fbinfo.buf + fbinfo.pitch * (i + 1) * CHAR_HEIGHT,
+                   fbinfo.pitch * CHAR_HEIGHT);
+        // zero out the last row
+        bzero(fbinfo.buf + fbinfo.pitch * i * CHAR_HEIGHT,
+              fbinfo.pitch * CHAR_HEIGHT);
+        fbinfo.chars_y--;
+    }
 
     if(c == '\n')
-        {
-            fbinfo.chars_x = 0;
-            fbinfo.chars_y++;
-            return;
-        }
+    {
+        fbinfo.chars_x = 0;
+        fbinfo.chars_y++;
+        return;
+    }
 
     for(w = 0; w < CHAR_WIDTH; w++)
+    {
+        for(h = 0; h < CHAR_HEIGHT; h++)
         {
-            for(h = 0; h < CHAR_HEIGHT; h++)
-                {
-                    mask = 1 << (w);
-                    if(bmp[h] & mask)
-                        write_pixel(fbinfo.chars_x * CHAR_WIDTH + w,
-                                    fbinfo.chars_y * CHAR_HEIGHT + h, &WHITE);
-                    else
-                        write_pixel(fbinfo.chars_x * CHAR_WIDTH + w,
-                                    fbinfo.chars_y * CHAR_HEIGHT + h, &BLACK);
-                }
+            mask = 1 << (w);
+            if(bmp[h] & mask)
+                write_pixel(fbinfo.chars_x * CHAR_WIDTH + w,
+                            fbinfo.chars_y * CHAR_HEIGHT + h, &WHITE);
+            else
+                write_pixel(fbinfo.chars_x * CHAR_WIDTH + w,
+                            fbinfo.chars_y * CHAR_HEIGHT + h, &BLACK);
         }
+    }
 
     fbinfo.chars_x++;
     if(fbinfo.chars_x > fbinfo.chars_width)
-        {
-            fbinfo.chars_x = 0;
-            fbinfo.chars_y++;
-        }
+    {
+        fbinfo.chars_x = 0;
+        fbinfo.chars_y++;
+    }
 }
 
 void gpu_init(void)
@@ -73,10 +73,10 @@ void gpu_init(void)
 
     // clear screen
     for(uint32_t j = 0; j < fbinfo.height; j++)
+    {
+        for(uint32_t i = 0; i < fbinfo.width; i++)
         {
-            for(uint32_t i = 0; i < fbinfo.width; i++)
-                {
-                    write_pixel(i, j, &BLACK);
-                }
+            write_pixel(i, j, &BLACK);
         }
+    }
 }

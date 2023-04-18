@@ -100,31 +100,31 @@ void uart_putc(unsigned char c)
     if(c == '\r') // Might need to remove this on RPi.
         c = '\n'; // On macOS necessary to get line breaks...
     while(1)
-        {
-            if(mmio_read(AUX_MU_LSR_REG) & (1 << 5))
-                break;
-        }
+    {
+        if(mmio_read(AUX_MU_LSR_REG) & (1 << 5))
+            break;
+    }
     mmio_write(AUX_MU_IO_REG, c);
 }
 
 unsigned char uart_getc()
 {
     while(1)
-        {
-            if(mmio_read(AUX_MU_LSR_REG) & (1 << 0))
-                break;
-        }
+    {
+        if(mmio_read(AUX_MU_LSR_REG) & (1 << 0))
+            break;
+    }
     return mmio_read(AUX_MU_IO_REG);
 }
 
 void uart_puts(const char *str)
 {
     for(size_t i = 0; str[i] != '\0'; i++)
-        {
-            if(str[i] == '\n')
-                uart_putc('\r');
-            uart_putc((unsigned char)str[i]);
-        }
+    {
+        if(str[i] == '\n')
+            uart_putc('\r');
+        uart_putc((unsigned char)str[i]);
+    }
 }
 
 char *uart_gets()
@@ -135,14 +135,14 @@ char *uart_gets()
     memset(&str, '\0', MAX_INPUT_LENGTH + 1);
 
     for(i = 0; i < MAX_INPUT_LENGTH; i++)
+    {
+        str[i] = (char)uart_getc();
+        uart_putc(str[i]);
+        if(str[i] == '\r' || str[i] == '\n')
         {
-            str[i] = (char)uart_getc();
-            uart_putc(str[i]);
-            if(str[i] == '\r' || str[i] == '\n')
-                {
-                    break;
-                }
+            break;
         }
+    }
 
     str[i] = '\0';
 

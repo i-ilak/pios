@@ -26,16 +26,16 @@ void gets(char *buf, int buflen)
     char c;
     // Leave a spot for null char in buffer
     for(i = 0; (c = getc()) != '\r' && buflen > 1; i++, buflen--)
-        {
-            putc(c);
-            buf[i] = c;
-        }
+    {
+        putc(c);
+        buf[i] = c;
+    }
 
     putc('\n');
     if(c == '\n')
-        {
-            buf[i] = '\0';
-        }
+    {
+        buf[i] = '\0';
+    }
     else
         buf[buflen - 1] = '\0';
 }
@@ -46,20 +46,20 @@ void printf(const char *fmt, ...)
     va_start(args, fmt);
 
     for(; *fmt != '\0'; fmt++)
+    {
+        if(*fmt == '%')
         {
-            if(*fmt == '%')
-                {
-                    switch(*(++fmt))
-                        {
-                        case '%': putc('%'); break;
-                        case 'd': puts(itoa(va_arg(args, int), 10)); break;
-                        case 'x': puts(itoa(va_arg(args, int), 16)); break;
-                        case 's': puts(va_arg(args, char *)); break;
-                        }
-                }
-            else
-                putc(*fmt);
+            switch(*(++fmt))
+            {
+            case '%': putc('%'); break;
+            case 'd': puts(itoa(va_arg(args, int), 10)); break;
+            case 'x': puts(itoa(va_arg(args, int), 16)); break;
+            case 's': puts(va_arg(args, char *)); break;
+            }
         }
+        else
+            putc(*fmt);
+    }
 
     va_end(args);
 }

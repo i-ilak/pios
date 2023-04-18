@@ -27,6 +27,7 @@ BraceWrapping:
   SplitEmptyFunction: false
   SplitEmptyRecord: false
   SplitEmptyNamespace: false
+BreakBeforeBraces: Allman
 ContinuationIndentWidth: 4
 IndentWidth: 4
 Cpp11BracedListStyle: true

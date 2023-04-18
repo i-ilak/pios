@@ -46,7 +46,7 @@ void kernel_main(uint64_t dtb_ptr32, uint64_t x0, uint64_t x1, uint64_t x3)
     print_atags(atags);
 
     while(1)
-        {
-            putc(getc());
-        }
+    {
+        putc(getc());
+    }
 }
