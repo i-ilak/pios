@@ -3,7 +3,6 @@
 
 #include <stdint.h>
 
-// raspi model 1 does not have division instruction, so we need to define our own
 __inline__ uint32_t div(uint32_t dividend, uint32_t divisor)
 {
 #if MODEL_0 || MODEL_1

@@ -1,3 +1,6 @@
+// All implementation details have been taken from here
+// http://www.simtec.co.uk/products/SWLINUX/files/booting_article.html#appendix_tag_reference
+
 #include <stdint.h>
 
 #ifndef ATAG_H

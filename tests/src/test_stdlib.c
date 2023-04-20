@@ -4,12 +4,14 @@
 
 void test_div(void **state)
 {
+    (void)state;
     assert_int_equal(0, div(1, 2));
     assert_int_equal(46, div(234, 5));
 }
 
 void test_divmod(void **state)
 {
+    (void)state;
     divmod_t res = divmod(234, 5);
     assert_int_equal(res.div, 46);
     assert_int_equal(res.mod, 4);
@@ -17,6 +19,7 @@ void test_divmod(void **state)
 
 void test_itoa(void **state)
 {
+    (void)state;
     assert_string_equal("26", itoa(26, 10));
     assert_string_equal("-26", itoa(-26, 10));
     assert_string_equal("0b11010", itoa(26, 2));
@@ -26,12 +29,14 @@ void test_itoa(void **state)
 
 void test_atoi(void **state)
 {
+    (void)state;
     assert_int_equal(26, atoi("26"));
     assert_int_equal(-26, atoi("-26"));
 }
 
 void test_memset(void **state)
 {
+    (void)state;
     char str[50] = "I need a sentence to test this!";
     memset(str + 5, '.', 8);
     assert_string_equal(str, "I nee........ence to test this!");
@@ -46,6 +51,7 @@ void test_memset(void **state)
 
 void test_bzero(void **state)
 {
+    (void)state;
     int32_t arr[10];
     for(int32_t i = 0; i < 10; i++)
         arr[i] = 1;
@@ -58,6 +64,7 @@ void test_bzero(void **state)
 
 void test_memcpy(void **state)
 {
+    (void)state;
     int32_t arr[10];
     for(int32_t i = 0; i < 10; i++)
         arr[i] = 1;

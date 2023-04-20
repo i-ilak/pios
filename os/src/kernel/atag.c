@@ -15,33 +15,6 @@ uint32_t get_mem_size(atag_t *atags)
     return 0;
 }
 
-char *tohex(unsigned int value, unsigned int size)
-{
-    static char buffer[9];
-
-    unsigned int offset;
-    unsigned char ch;
-
-    if(size != 1 && size != 2 && size != 4)
-        return "error";
-
-    offset = size * 2;
-
-    buffer[offset] = 0;
-
-    while(offset--)
-    {
-        ch = 48 + (value & 15);
-        if(ch >= 58)
-            ch += 7;
-
-        buffer[offset] = ch;
-        value = value >> 4;
-    }
-
-    return buffer;
-}
-
 void print_atag_core(atag_t *atags)
 {
     printf("    Flags:        %d\n", atags->core.flags);
@@ -72,10 +45,8 @@ void print_atags(uint32_t address)
     do
     {
         tag = atags->header.tag_type;
-        puts("  ATAG at address 0x");
-        puts(tohex((unsigned int)atags, 4));
-        puts(" is ");
-        puts(tohex(tag, 4));
+        printf("  ATAG at address %s", itoa((uint32_t)atags, 16));
+        printf(" is %s", itoa(tag, 16));
 
         switch(tag)
         {
