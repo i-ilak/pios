@@ -2,6 +2,6 @@ piOS:
     image: registry.gitlab.com/iilak/pios:latest
     stage: build
     script:
-        - mkdir -p ./pios/export
+        - mkdir export
         - cmake -G Ninja -B ./build -S .
         - cmake --build ./build
