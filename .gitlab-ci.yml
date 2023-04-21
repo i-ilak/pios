@@ -1,5 +1,5 @@
 piOS:
-    image: rushmash/gcc-arm-embedded-docker:latest
+    image: registry.gitlab.com/iilak/pios:latest
     stage: build
     script:
         - cmake -G Ninja -B ./build -S .

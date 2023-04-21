@@ -1,8 +1,5 @@
 FROM ubuntu:22.04 AS base
 
-ARG BUILD_TYPE=Release
-ARG BUILD_DIR=build
-
 RUN apt-get update && apt-get install -y \
     gdb-multiarch \
     wget \
@@ -10,7 +7,6 @@ RUN apt-get update && apt-get install -y \
     make cmake ninja-build bzip2 mc file
 
 RUN mkdir /usr/opt/
-
 
 RUN wget --directory-prefix=/usr/opt/ https://developer.arm.com/-/media/Files/downloads/gnu-a/10.3-2021.07/binrel/gcc-arm-10.3-2021.07-aarch64-aarch64-none-elf.tar.xz
 RUN mkdir -p /usr/opt/aarch64-none-elf 
@@ -30,20 +26,16 @@ RUN ln -s /usr/opt/gcc-arm-none-eabi/bin/arm-none-eabi-as /usr/bin/arm-none-eabi
 RUN ln -s /usr/opt/gcc-arm-none-eabi/bin/arm-none-eabi-ld /usr/bin/arm-none-eabi-ld
 RUN ln -s /usr/opt/gcc-arm-none-eabi/bin/arm-none-eabi-objcopy /usr/bin/arm-none-eabi-objcopy
 
-
-ENV CC="/usr/bin/aarch64-none-elf-gcc"
-ENV CXX="/usr/bin/aarch64-none-elf-gcc"
-
 WORKDIR /home/piOS
 
-COPY . .
+# COPY . .
 
-FROM base AS build
+# FROM base AS build
 
-RUN rm -rf ./${BUILD_DIR}
-RUN cmake -G Ninja -B ./${BUILD_DIR} -S . --debug-output
-RUN cmake --build ./${BUILD_DIR}
+# RUN rm -rf ./${BUILD_DIR}
+# RUN cmake -G Ninja -B ./${BUILD_DIR} -S . --debug-output
+# RUN cmake --build ./${BUILD_DIR}
 
-FROM scratch AS export-stage
-COPY --from=build ./home/piOS/build/bin .
+# FROM scratch AS export-stage
+# COPY --from=build ./home/piOS/build/bin .
 

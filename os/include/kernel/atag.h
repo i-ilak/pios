@@ -1,11 +1,18 @@
 // All implementation details have been taken from here
 // http://www.simtec.co.uk/products/SWLINUX/files/booting_article.html#appendix_tag_reference
+/**
+ * @file atag.h
+ * @brief ATAG parsing
+ */
 
 #include <stdint.h>
 
 #ifndef ATAG_H
 #define ATAG_H
 
+/**
+ * @brief Prints the ATAGs
+ */
 void print_atags(uint32_t address);
 
 #define ATAG_NONE 0
@@ -19,19 +26,31 @@ void print_atags(uint32_t address);
 #define ATAG_VIDEOLFB 0x54410008
 #define ATAG_CMDLINE 0x54410009
 
+/**
+ * @brief ATAG header structure
+ */
 typedef struct atag_header
 {
     uint32_t size;     /**< Size in words of this tag */
     uint32_t tag_type; /**< Tag value */
 } atag_header;
 
-/* ATAG_NONE ends the list of ATAGs */
+/**
+ * @brief ATAG_NONE structure
+ *
+ * This is the end of the list of ATAGs.
+ */
 typedef struct atag_none
 {
     /* No further data in this ATAG */
 } atag_none;
 
-/* ATAG_CORE begins the list of ATAGs */
+/**
+ * @brief ATAG_CORE structure
+ *
+ * This is the first ATAG in the list. It is required. It contains the flags
+ * and page size.
+ */
 typedef struct atag_core
 {
     /* Optional entries below */
@@ -40,7 +59,11 @@ typedef struct atag_core
     uint32_t rootdevice; /**< Root device number */
 } atag_core;
 
-/* ATAG_MEM defines a physical memory region */
+/**
+ * @brief ATAG_MEM structure
+ *
+ * This ATAG describes a physical memory region.
+ */
 typedef struct atag_mem
 {
     uint32_t size;    /**< Size of region */
@@ -49,7 +72,11 @@ typedef struct atag_mem
 
 /* ATAG_VIDEOTEXT defines a VGA text screen. Not relevant to a Raspberry Pi  */
 
-/* ATAG_RAMDISK defines an initial ramdisk - floppy images only? */
+/**
+ * @brief ATAG_RAMDISK structure
+ *
+ * This ATAG describes the location of a ramdisk.
+ */
 typedef struct atag_ramdisk
 {
     uint32_t flags; /**< Bit 0 = load, bit 1 = prompt */
@@ -57,7 +84,11 @@ typedef struct atag_ramdisk
     uint32_t start; /**< Start block of ram disk */
 } atag_ramdisk;
 
-/* ATAG_INITRD2 - define physical location of ramdisk image */
+/**
+ * @brief ATAG_INITRD2 structure
+ *
+ * This ATAG describes the location of an initial ramdisk.
+ */
 typedef struct atag_initrd2
 {
     uint32_t address; /**< Address of ramdisk image */
@@ -71,13 +102,21 @@ typedef struct atag_serial
     uint32_t high;
 } atag_serial;
 
-/* ATAG_REVISION - board revision number */
+/**
+ * @brief ATAG_REVISION structure
+ *
+ * This ATAG describes the revision of the board.
+ */
 typedef struct atag_revision
 {
     uint32_t revision;
 } atag_revision;
 
-/* ATAG_VIDEOLFB - describes a framebuffer */
+/**
+ * @brief ATAG_VIDEOLFB structure
+ *
+ * This ATAG describes the parameters for a framebuffer type display.
+ */
 typedef struct atag_videolfb
 {
     uint16_t width;        /**< Width of buffer */
@@ -96,12 +135,21 @@ typedef struct atag_videolfb
     unsigned char reservedpos;  /**< Position of reserved bits */
 } atag_videolfb;
 
-/* ATAG_CMDLINE - kernel command line */
+/**
+ * @brief ATAG_CMDLINE structure
+ *
+ * This ATAG describes the command line to be passed to the kernel.
+ */
 typedef struct atag_cmdline
 {
     char *commandline; /**< Multiple characters from here */
 } atag_cmdline;
 
+/**
+ * @brief ATAG structure
+ *
+ * This is the union of all the ATAG types.
+ */
 typedef struct atag_t
 {
     atag_header header;
@@ -118,9 +166,14 @@ typedef struct atag_t
     };
 } atag_t;
 
-#define tag_next(t) ((atag_t *)((uint32_t *)(t) + (t)->header.size))
-#define tag_size(type) ((sizeof(atag_header) + sizeof(type)) >> 2)
+#define tag_next(t)                                                           \
+    ((atag_t *)((uint32_t *)(t) + (t)->header.size)) /**< Get next tag */
+#define tag_size(type)                                                        \
+    ((sizeof(atag_header) + sizeof(type)) >> 2) /**< Get size of tag */
 
+/**
+ * @brief Get the memory size from the ATAGs
+ */
 uint32_t get_mem_size(atag_t *atags);
 
 #endif
