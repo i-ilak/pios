@@ -38,9 +38,6 @@ void mailbox_send(mail_message_t msg, int channel)
     *MAIL0_WRITE = msg;
 }
 
-/**
- * returns the max of the size of the request and result buffer for each tag
- */
 static uint32_t get_value_buffer_len(property_message_tag_t *tag)
 {
     switch(tag->proptag)

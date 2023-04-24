@@ -1,7 +1,55 @@
 #include <stdint.h>
 #ifndef CHAR_BMPS_H
 #define CHAR_BMPS_H
-/* From https://github.com/dhepper/font8x8/blob/master/font8x8_block.h */
+
+/**
+ * @file chars_pixels.h
+ * @brief Contains the font bitmap for the 8x8 font
+ */
+
+/**
+ * @brief Get the font bitmap for a character
+ *
+ * @param c The character to get the bitmap for
+ * @return The bitmap for the character (as const uint8_t*).
+ *
+ * The following description is directly taken from where the front is:
+ *  https://github.com/dhepper/font8x8/blob/master/font8x8_block.h
+ *
+ * Every character in the font is encoded row-wise in 8 bytes.
+ *
+ * The least significant bit of each byte corresponds to the first pixel in a
+ * row.
+ *
+ * The character 'A' (0x41 / 65) is encoded as
+ *   <code>{ 0x0C, 0x1E, 0x33, 0x33, 0x3F, 0x33, 0x33, 0x00}</code>
+ *
+ *  <code>
+        0x0C => 0000 1100 => ..XX.... <br>
+        0X1E => 0001 1110 => .XXXX... <br>
+        0x33 => 0011 0011 => XX..XX.. <br>
+        0x33 => 0011 0011 => XX..XX.. <br>
+        0x3F => 0011 1111 => xxxxxx.. <br>
+        0x33 => 0011 0011 => XX..XX.. <br>
+        0x33 => 0011 0011 => XX..XX.. <br>
+        0x00 => 0000 0000 => ........ <br>
+    </code>
+ *
+ * To access the nth pixel in a row, right-shift by n.
+ *  \verbatim
+                         . . X X . . . .
+                         | | | | | | | |
+    (0x0C >> 0) & 1 == 0-+ | | | | | | |
+    (0x0C >> 1) & 1 == 0---+ | | | | | |
+    (0x0C >> 2) & 1 == 1-----+ | | | | |
+    (0x0C >> 3) & 1 == 1-------+ | | | |
+    (0x0C >> 4) & 1 == 0---------+ | | |
+    (0x0C >> 5) & 1 == 0-----------+ | |
+    (0x0C >> 6) & 1 == 0-------------+ |
+    (0x0C >> 7) & 1 == 0---------------+
+    \endverbatim
+ */
+
 const uint8_t *font(int c)
 {
     static const char f[128][8] = {
