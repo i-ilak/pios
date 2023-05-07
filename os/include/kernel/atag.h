@@ -8,23 +8,32 @@
 #include <stdint.h>
 
 #ifndef ATAG_H
-#define ATAG_H
+#define ATAG_H /**< ATAG_H */
 
 /**
  * @brief Prints the ATAGs
+ *
+ * @param address Address of the ATAGs
  */
 void print_atags(uint32_t address);
 
-#define ATAG_NONE 0
-#define ATAG_CORE 0x54410001
-#define ATAG_MEM 0x54410002
-#define ATAG_VIDEOTEXT 0x54410003
-#define ATAG_RAMDISK 0x54410004
-#define ATAG_INITRD2 0x54420005
-#define ATAG_SERIAL 0x54410006
-#define ATAG_REVISION 0x54410007
-#define ATAG_VIDEOLFB 0x54410008
-#define ATAG_CMDLINE 0x54410009
+/**
+ * @brief Enumearation of ATAG types
+ */
+enum ATAG_TYPE
+{
+    ATAG_NONE = 0,               /**< Empty tag used to end the list */
+    ATAG_CORE = 0x54410001,      /**< First tag used to start the list */
+    ATAG_MEM = 0x54410002,       /**< Describes a physical area of memory */
+    ATAG_VIDEOTEXT = 0x54410003, /**< VGA text screen information */
+    ATAG_RAMDISK = 0x54410004,   /**< Describes how the ramdisk will be used */
+    ATAG_INITRD2 = 0x54420005,   /**< Describes where the compressed ramdisk
+                                    image is placed in memory */
+    ATAG_SERIAL = 0x54410006,    /**< Board serial number */
+    ATAG_REVISION = 0x54410007,  /**< Board revision */
+    ATAG_VIDEOLFB = 0x54410008,  /**< Framebuffer information */
+    ATAG_CMDLINE = 0x54410009    /**< Command line */
+};
 
 /**
  * @brief ATAG header structure
@@ -95,11 +104,15 @@ typedef struct atag_initrd2
     uint32_t size;    /**< Size of compressed(?) image */
 } atag_initrd2;
 
-/* ATAG_SERIAL has the 64-bit serial number */
+/**
+ * @brief ATAG_SERIAL structure
+ *
+ * This ATAG describes the serial number of the board.
+ */
 typedef struct atag_serial
 {
-    uint32_t low;
-    uint32_t high;
+    uint32_t low;  /**< Low 32 bits of serial number */
+    uint32_t high; /**< High 32 bits of serial number */
 } atag_serial;
 
 /**
@@ -109,7 +122,7 @@ typedef struct atag_serial
  */
 typedef struct atag_revision
 {
-    uint32_t revision;
+    uint32_t revision; /**< Board revision */
 } atag_revision;
 
 /**
@@ -119,18 +132,18 @@ typedef struct atag_revision
  */
 typedef struct atag_videolfb
 {
-    uint16_t width;        /**< Width of buffer */
-    uint16_t height;       /**< Height */
-    uint16_t depth;        /**< Bits/pixel */
-    uint16_t linelength;   // ?
-    uint32_t address;      /**< Base address of buffer */
-    uint32_t size;         /**< Size of buffer */
-    unsigned char redsize; /**< Number of red bits in each pixel */
-    unsigned char redpos;  /**< Position of red bits in pixel */
-    unsigned char greensize;
-    unsigned char greenpos;
-    unsigned char bluesize;
-    unsigned char bluepos;
+    uint16_t width;             /**< Width of buffer */
+    uint16_t height;            /**< Height */
+    uint16_t depth;             /**< Bits/pixel */
+    uint16_t linelength;        /**< Length of a line in bytes */
+    uint32_t address;           /**< Base address of buffer */
+    uint32_t size;              /**< Size of buffer */
+    unsigned char redsize;      /**< Number of red bits in each pixel */
+    unsigned char redpos;       /**< Position of red bits in pixel */
+    unsigned char greensize;    /**< Number of green bits in each pixel */
+    unsigned char greenpos;     /**< Position of green bits in pixel */
+    unsigned char bluesize;     /**< Number of blue bits in each pixel */
+    unsigned char bluepos;      /**< Position of blue bits in pixel */
     unsigned char reservedsize; /**< Number of reserved bits/pixel */
     unsigned char reservedpos;  /**< Position of reserved bits */
 } atag_videolfb;
@@ -152,19 +165,19 @@ typedef struct atag_cmdline
  */
 typedef struct atag_t
 {
-    atag_header header;
+    atag_header header; /**< Standard header */
     union
     {
-        atag_core core;
-        atag_mem mem;
-        atag_ramdisk ramdisk;
-        atag_initrd2 initrd2;
-        atag_serial serial;
-        atag_revision revision;
-        atag_videolfb videolfb;
-        atag_cmdline cmdline;
+        atag_core core;         /**< Core tag */
+        atag_mem mem;           /**< Memory tag */
+        atag_ramdisk ramdisk;   /**< Ramdisk tag */
+        atag_initrd2 initrd2;   /**< Initrd2 tag */
+        atag_serial serial;     /**< Serial tag */
+        atag_revision revision; /**< Revision tag */
+        atag_videolfb videolfb; /**< Videolfb tag */
+        atag_cmdline cmdline;   /**< Cmdline tag */
     };
-} atag_t;
+} atag_t; /**< ATAG structure */
 
 #define tag_next(t)                                                           \
     ((atag_t *)((uint32_t *)(t) + (t)->header.size)) /**< Get next tag */
@@ -173,6 +186,8 @@ typedef struct atag_t
 
 /**
  * @brief Get the memory size from the ATAGs
+ *
+ * @param atags Pointer to the ATAGs
  */
 uint32_t get_mem_size(atag_t *atags);
 

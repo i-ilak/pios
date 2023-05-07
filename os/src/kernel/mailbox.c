@@ -40,7 +40,7 @@ void mailbox_send(mail_message_t msg, int channel)
 
 static uint32_t get_value_buffer_len(property_message_tag_t *tag)
 {
-    switch(tag->proptag)
+    switch(tag->property_tag)
     {
     case FB_ALLOCATE_BUFFER:
     case FB_GET_PHYSICAL_DIMENSIONS:
@@ -62,7 +62,7 @@ int send_messages(property_message_tag_t *tags)
     uint32_t bufsize = 0, i, len, bufpos;
 
     // Calculate the sizes of each tag
-    for(i = 0; tags[i].proptag != NULL_TAG; i++)
+    for(i = 0; tags[i].property_tag != NULL_TAG; i++)
     {
         bufsize += get_value_buffer_len(&tags[i]) + 3 * sizeof(uint32_t);
     }
@@ -81,10 +81,10 @@ int send_messages(property_message_tag_t *tags)
     msg->req_res_code = REQUEST;
 
     // Copy the messages into the buffer
-    for(i = 0, bufpos = 0; tags[i].proptag != NULL_TAG; i++)
+    for(i = 0, bufpos = 0; tags[i].property_tag != NULL_TAG; i++)
     {
         len = get_value_buffer_len(&tags[i]);
-        msg->tags[bufpos++] = tags[i].proptag;
+        msg->tags[bufpos++] = tags[i].property_tag;
         msg->tags[bufpos++] = len;
         msg->tags[bufpos++] = 0;
         memcpy(msg->tags + bufpos, &tags[i].value_buffer, len);
@@ -112,7 +112,7 @@ int send_messages(property_message_tag_t *tags)
     }
 
     // Copy the tags back into the array
-    for(i = 0, bufpos = 0; tags[i].proptag != NULL_TAG; i++)
+    for(i = 0, bufpos = 0; tags[i].property_tag != NULL_TAG; i++)
     {
         len = get_value_buffer_len(&tags[i]);
         bufpos += 3; // skip over the tag bookkepping info

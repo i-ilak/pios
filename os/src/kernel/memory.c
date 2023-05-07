@@ -6,7 +6,9 @@
 #include <stddef.h>
 
 /**
- * Heap Stuff
+ * @brief Initalize the heap
+ *
+ * @param heap_start The start of the heap
  */
 static void heap_init(uint32_t heap_start);
 /**
@@ -16,24 +18,24 @@ static void heap_init(uint32_t heap_start);
  */
 typedef struct heap_segment
 {
-    struct heap_segment *next;
-    struct heap_segment *prev;
-    uint32_t is_allocated;
-    uint32_t segment_size; // Includes this header
-} heap_segment_t;
+    struct heap_segment
+        *next; /**< pointer to the next segment in the linked list */
+    struct heap_segment
+        *prev; /**< pointer to the previous segment in the linked list */
+    uint32_t is_allocated; /**< 1 if the segment is allocated, 0 if it's free */
+    uint32_t segment_size; /**< size of the segment, including the header */
+} heap_segment_t;          /**< Heap segment */
 
-static heap_segment_t *heap_segment_list_head;
-/**
- * End Heap Stuff
- */
+static heap_segment_t
+    *heap_segment_list_head; /**< Head of the heap segment list */
 
-extern uint8_t __end;
-static uint32_t num_pages;
+extern uint8_t __end;      /**< Defined by the linker */
+static uint32_t num_pages; /**< Number of pages in the system */
 
 IMPLEMENT_LIST(page);
 
-static page_t *all_pages_array;
-page_list_t free_pages;
+static page_t *all_pages_array; /**< Array of all pages in the system */
+page_list_t free_pages;         /**< List of all free pages in the system */
 
 void mem_init(atag_t *atags)
 {

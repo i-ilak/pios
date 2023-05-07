@@ -64,7 +64,7 @@ void gpu_putc(char c)
     }
 }
 
-void gpu_init(void)
+void gpu_init()
 {
     static const pixel_t BLACK = {0x00, 0x00, 0x00};
     // Aparantly, this sometimes does not work, so try in a loop

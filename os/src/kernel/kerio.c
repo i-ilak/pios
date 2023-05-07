@@ -5,7 +5,7 @@
 #include "common/stdlib.h"
 #include <stdarg.h>
 
-char getc(void) { return uart_getc(); }
+char getc() { return uart_getc(); }
 
 void putc(char c)
 {
