@@ -26,7 +26,7 @@ typedef struct framebuffer_info
     uint32_t width;        /**< Width of the framebuffer in pixels */
     uint32_t height;       /**< Height of the framebuffer in pixels */
     uint32_t pitch;        /**< Number of bytes per row */
-    void *buf;             /**< Pointer to the framebuffer */
+    void    *buf;          /**< Pointer to the framebuffer */
     uint32_t buf_size;     /**< Size of the framebuffer in bytes */
     uint32_t chars_width;  /**< Width of the framebuffer in characters */
     uint32_t chars_height; /**< Height of the framebuffer in characters */

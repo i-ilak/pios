@@ -7,9 +7,9 @@ __inline__ uint32_t div(uint32_t dividend, uint32_t divisor)
 {
 #if MODEL_0 || MODEL_1
     // Use long division, but in binary.  Copied from Stack overflow...
-    uint32_t denom = divisor;
+    uint32_t denom   = divisor;
     uint32_t current = 1;
-    uint32_t answer = 0;
+    uint32_t answer  = 0;
 
     if(denom > dividend)
         return 0;
@@ -57,7 +57,7 @@ __inline__ divmod_t divmod(uint32_t dividend, uint32_t divisor)
 
 void *memcpy(void *dest, const void *src, unsigned long bytes)
 {
-    char *d = dest;
+    char       *d = dest;
     const char *s = src;
     while(bytes--)
     {
@@ -81,8 +81,8 @@ void *memset(void *dest, int c, unsigned long bytes)
 char *itoa(int num, int base)
 {
     static char intbuf[33];
-    uint32_t j = 0, isneg = 0, i;
-    divmod_t divmod_res;
+    uint32_t    j = 0, isneg = 0, i;
+    divmod_t    divmod_res;
 
     if(num == 0)
     {
@@ -94,7 +94,7 @@ char *itoa(int num, int base)
     if(base == 10 && num < 0)
     {
         isneg = 1;
-        num = -num;
+        num   = -num;
     }
     else if(base == 2 && num < 0)
     {
@@ -107,10 +107,10 @@ char *itoa(int num, int base)
 
     while(i != 0)
     {
-        divmod_res = divmod(i, base);
+        divmod_res  = divmod(i, base);
         intbuf[j++] = (divmod_res.mod) < 10 ? '0' + (divmod_res.mod)
                                             : 'a' + (divmod_res.mod) - 10;
-        i = divmod_res.div;
+        i           = divmod_res.div;
     }
 
     if(base == 16)
@@ -136,7 +136,7 @@ char *itoa(int num, int base)
     i = 0;
     while(i < j)
     {
-        isneg = intbuf[i];
+        isneg     = intbuf[i];
         intbuf[i] = intbuf[j];
         intbuf[j] = isneg;
         i++;
@@ -148,7 +148,7 @@ char *itoa(int num, int base)
 
 int atoi(const char *nptr)
 {
-    int result = 0;
+    int result   = 0;
     int position = 1;
 
     const char *p = nptr;

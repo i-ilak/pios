@@ -56,12 +56,12 @@ char *strcat(char *dest, const char *src)
 
 void strrev(char *str)
 {
-    int i, j;
+    int  i, j;
     char tmp;
 
     for(i = 0, j = strlen(str) - 1; i < j; i++, j--)
     {
-        tmp = str[i];
+        tmp    = str[i];
         str[i] = str[j];
         str[j] = tmp;
     }

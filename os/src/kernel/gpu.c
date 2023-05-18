@@ -16,10 +16,10 @@ void gpu_putc(char c)
 {
     static const pixel_t WHITE = {0xff, 0xff, 0xff};
     static const pixel_t BLACK = {0x00, 0x00, 0x00};
-    uint8_t w, h;
-    uint8_t mask;
-    const uint8_t *bmp = font(c);
-    uint32_t i, num_rows = fbinfo.height / CHAR_HEIGHT;
+    uint8_t              w, h;
+    uint8_t              mask;
+    const uint8_t       *bmp = font(c);
+    uint32_t             i, num_rows = fbinfo.height / CHAR_HEIGHT;
 
     // shift everything up one row
     if(fbinfo.chars_y >= num_rows)
@@ -49,10 +49,12 @@ void gpu_putc(char c)
             mask = 1 << (w);
             if(bmp[h] & mask)
                 write_pixel(fbinfo.chars_x * CHAR_WIDTH + w,
-                            fbinfo.chars_y * CHAR_HEIGHT + h, &WHITE);
+                            fbinfo.chars_y * CHAR_HEIGHT + h,
+                            &WHITE);
             else
                 write_pixel(fbinfo.chars_x * CHAR_WIDTH + w,
-                            fbinfo.chars_y * CHAR_HEIGHT + h, &BLACK);
+                            fbinfo.chars_y * CHAR_HEIGHT + h,
+                            &BLACK);
         }
     }
 

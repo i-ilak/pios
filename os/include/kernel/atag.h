@@ -22,17 +22,17 @@ void print_atags(uint32_t address);
  */
 enum ATAG_TYPE
 {
-    ATAG_NONE = 0,               /**< Empty tag used to end the list */
-    ATAG_CORE = 0x54410001,      /**< First tag used to start the list */
-    ATAG_MEM = 0x54410002,       /**< Describes a physical area of memory */
+    ATAG_NONE      = 0,          /**< Empty tag used to end the list */
+    ATAG_CORE      = 0x54410001, /**< First tag used to start the list */
+    ATAG_MEM       = 0x54410002, /**< Describes a physical area of memory */
     ATAG_VIDEOTEXT = 0x54410003, /**< VGA text screen information */
-    ATAG_RAMDISK = 0x54410004,   /**< Describes how the ramdisk will be used */
-    ATAG_INITRD2 = 0x54420005,   /**< Describes where the compressed ramdisk
+    ATAG_RAMDISK   = 0x54410004, /**< Describes how the ramdisk will be used */
+    ATAG_INITRD2   = 0x54420005, /**< Describes where the compressed ramdisk
                                     image is placed in memory */
-    ATAG_SERIAL = 0x54410006,    /**< Board serial number */
+    ATAG_SERIAL   = 0x54410006,  /**< Board serial number */
     ATAG_REVISION = 0x54410007,  /**< Board revision */
     ATAG_VIDEOLFB = 0x54410008,  /**< Framebuffer information */
-    ATAG_CMDLINE = 0x54410009    /**< Command line */
+    ATAG_CMDLINE  = 0x54410009   /**< Command line */
 };
 
 /**
@@ -132,12 +132,12 @@ typedef struct atag_revision
  */
 typedef struct atag_videolfb
 {
-    uint16_t width;             /**< Width of buffer */
-    uint16_t height;            /**< Height */
-    uint16_t depth;             /**< Bits/pixel */
-    uint16_t linelength;        /**< Length of a line in bytes */
-    uint32_t address;           /**< Base address of buffer */
-    uint32_t size;              /**< Size of buffer */
+    uint16_t      width;        /**< Width of buffer */
+    uint16_t      height;       /**< Height */
+    uint16_t      depth;        /**< Bits/pixel */
+    uint16_t      linelength;   /**< Length of a line in bytes */
+    uint32_t      address;      /**< Base address of buffer */
+    uint32_t      size;         /**< Size of buffer */
     unsigned char redsize;      /**< Number of red bits in each pixel */
     unsigned char redpos;       /**< Position of red bits in pixel */
     unsigned char greensize;    /**< Number of green bits in each pixel */
@@ -168,14 +168,14 @@ typedef struct atag_t
     atag_header header; /**< Standard header */
     union
     {
-        atag_core core;         /**< Core tag */
-        atag_mem mem;           /**< Memory tag */
-        atag_ramdisk ramdisk;   /**< Ramdisk tag */
-        atag_initrd2 initrd2;   /**< Initrd2 tag */
-        atag_serial serial;     /**< Serial tag */
+        atag_core     core;     /**< Core tag */
+        atag_mem      mem;      /**< Memory tag */
+        atag_ramdisk  ramdisk;  /**< Ramdisk tag */
+        atag_initrd2  initrd2;  /**< Initrd2 tag */
+        atag_serial   serial;   /**< Serial tag */
         atag_revision revision; /**< Revision tag */
         atag_videolfb videolfb; /**< Videolfb tag */
-        atag_cmdline cmdline;   /**< Cmdline tag */
+        atag_cmdline  cmdline;  /**< Cmdline tag */
     };
 } atag_t; /**< ATAG structure */
 

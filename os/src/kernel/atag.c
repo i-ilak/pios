@@ -37,7 +37,7 @@ void print_atag_cmdline(atag_t *atags)
 
 void print_atags(uint32_t address)
 {
-    atag_t *atags = (atag_t *)address;
+    atag_t      *atags = (atag_t *)address;
     unsigned int tag;
 
     puts("Reading ATAGs\n\n");

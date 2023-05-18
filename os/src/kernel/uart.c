@@ -130,7 +130,7 @@ void uart_puts(const char *str)
 char *uart_gets()
 {
     static char str[MAX_INPUT_LENGTH + 1];
-    int i = 0;
+    int         i = 0;
 
     memset(&str, '\0', MAX_INPUT_LENGTH + 1);
 

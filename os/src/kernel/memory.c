@@ -29,13 +29,13 @@ typedef struct heap_segment
 static heap_segment_t
     *heap_segment_list_head; /**< Head of the heap segment list */
 
-extern uint8_t __end;      /**< Defined by the linker */
+extern uint8_t  __end;     /**< Defined by the linker */
 static uint32_t num_pages; /**< Number of pages in the system */
 
 IMPLEMENT_LIST(page);
 
 static page_t *all_pages_array; /**< Array of all pages in the system */
-page_list_t free_pages;         /**< List of all free pages in the system */
+page_list_t    free_pages;      /**< List of all free pages in the system */
 
 void mem_init(atag_t *atags)
 {
@@ -48,7 +48,7 @@ void mem_init(atag_t *atags)
 
     // Allocate space for all those pages' metadata.  Start this block just
     // after the kernel image is finished
-    page_array_len = sizeof(page_t) * num_pages;
+    page_array_len  = sizeof(page_t) * num_pages;
     all_pages_array = (page_t *)&__end;
     bzero(all_pages_array, page_array_len);
     INITIALIZE_LIST(free_pages);
@@ -60,7 +60,7 @@ void mem_init(atag_t *atags)
     {
         all_pages_array[i].vaddr_mapped
             = i * PAGE_SIZE; // Identity map the kernel pages
-        all_pages_array[i].flags.allocated = 1;
+        all_pages_array[i].flags.allocated   = 1;
         all_pages_array[i].flags.kernel_page = 1;
     }
     // Reserve 1 MB for the kernel heap
@@ -68,7 +68,7 @@ void mem_init(atag_t *atags)
     {
         all_pages_array[i].vaddr_mapped
             = i * PAGE_SIZE; // Identity map the kernel pages
-        all_pages_array[i].flags.allocated = 1;
+        all_pages_array[i].flags.allocated        = 1;
         all_pages_array[i].flags.kernel_heap_page = 1;
     }
     // Map the rest of the pages as unallocated, and add them to the free list
@@ -86,15 +86,15 @@ void mem_init(atag_t *atags)
 void *alloc_page(void)
 {
     page_t *page;
-    void *page_mem;
+    void   *page_mem;
 
     if(size_page_list(&free_pages) == 0)
         return 0;
 
     // Get a free page
-    page = pop_page_list(&free_pages);
+    page                    = pop_page_list(&free_pages);
     page->flags.kernel_page = 1;
-    page->flags.allocated = 1;
+    page->flags.allocated   = 1;
 
     // Get the address the physical page metadata refers to
     page_mem = (void *)((page - all_pages_array) * PAGE_SIZE);
@@ -126,8 +126,8 @@ static void heap_init(uint32_t heap_start)
 
 void *kmalloc(uint32_t bytes)
 {
-    heap_segment_t *curr, *best = NULL;
-    int diff, best_diff = 0x7fffffff; // Max signed int
+    heap_segment_t *curr, *best     = NULL;
+    int             diff, best_diff = 0x7fffffff; // Max signed int
 
     // Add the header to the number of bytes we need and make the size 4 byte
     // aligned
@@ -140,7 +140,7 @@ void *kmalloc(uint32_t bytes)
         diff = curr->segment_size - bytes;
         if(!curr->is_allocated && diff < best_diff && diff >= 0)
         {
-            best = curr;
+            best      = curr;
             best_diff = diff;
         }
     }
@@ -156,12 +156,12 @@ void *kmalloc(uint32_t bytes)
     if(best_diff > (int)(2 * sizeof(heap_segment_t)))
     {
         bzero(((void *)(best)) + bytes, sizeof(heap_segment_t));
-        curr = best->next;
-        best->next = ((void *)(best)) + bytes;
-        best->next->next = curr;
-        best->next->prev = best;
+        curr                     = best->next;
+        best->next               = ((void *)(best)) + bytes;
+        best->next->next         = curr;
+        best->next->prev         = best;
         best->next->segment_size = best->segment_size - bytes;
-        best->segment_size = bytes;
+        best->segment_size       = bytes;
     }
 
     best->is_allocated = 1;
@@ -176,7 +176,7 @@ void kfree(void *ptr)
     if(!ptr)
         return;
 
-    seg = ptr - sizeof(heap_segment_t);
+    seg               = ptr - sizeof(heap_segment_t);
     seg->is_allocated = 0;
 
     // try to coalesce segements to the left
@@ -191,7 +191,7 @@ void kfree(void *ptr)
     while(seg->next != NULL && !seg->next->is_allocated)
     {
         seg->next->next->prev = seg;
-        seg->next = seg->next->next;
+        seg->next             = seg->next->next;
         seg->segment_size += seg->next->segment_size;
     }
 }

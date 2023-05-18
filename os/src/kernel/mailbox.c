@@ -4,7 +4,7 @@
 
 mail_message_t mailbox_read(int channel)
 {
-    mail_status_t stat;
+    mail_status_t  stat;
     mail_message_t res;
 
     // Make sure that the message is from the right channel
@@ -58,8 +58,8 @@ static uint32_t get_value_buffer_len(property_message_tag_t *tag)
 int send_messages(property_message_tag_t *tags)
 {
     property_message_buffer_t *msg;
-    mail_message_t mail;
-    uint32_t bufsize = 0, i, len, bufpos;
+    mail_message_t             mail;
+    uint32_t                   bufsize = 0, i, len, bufpos;
 
     // Calculate the sizes of each tag
     for(i = 0; tags[i].property_tag != NULL_TAG; i++)
@@ -77,13 +77,13 @@ int send_messages(property_message_tag_t *tags)
     if(!msg)
         return -1;
 
-    msg->size = bufsize;
+    msg->size         = bufsize;
     msg->req_res_code = REQUEST;
 
     // Copy the messages into the buffer
     for(i = 0, bufpos = 0; tags[i].property_tag != NULL_TAG; i++)
     {
-        len = get_value_buffer_len(&tags[i]);
+        len                 = get_value_buffer_len(&tags[i]);
         msg->tags[bufpos++] = tags[i].property_tag;
         msg->tags[bufpos++] = len;
         msg->tags[bufpos++] = 0;

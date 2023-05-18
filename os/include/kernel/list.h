@@ -51,7 +51,7 @@
     {                                                                         \
         struct nodeType *head;                                                \
         struct nodeType *tail;                                                \
-        uint32_t size;                                                        \
+        uint32_t         size;                                                \
     } nodeType##_list_t;
 
 #define DEFINE_LINK(nodeType)                                                 \
@@ -60,16 +60,16 @@
 
 #define INITIALIZE_LIST(list)                                                 \
     list.head = list.tail = (void *)0;                                        \
-    list.size = 0;
+    list.size             = 0;
 
 #define IMPLEMENT_LIST(nodeType)                                              \
     void append_##nodeType##_list(nodeType##_list_t *list,                    \
-                                  struct nodeType *node)                      \
+                                  struct nodeType   *node)                    \
     {                                                                         \
         list->tail->next##nodeType = node;                                    \
-        node->prev##nodeType = list->tail;                                    \
-        list->tail = node;                                                    \
-        node->next##nodeType = NULL;                                          \
+        node->prev##nodeType       = list->tail;                              \
+        list->tail                 = node;                                    \
+        node->next##nodeType       = NULL;                                    \
         list->size += 1;                                                      \
         if(list->head == NULL)                                                \
         {                                                                     \
@@ -78,11 +78,11 @@
     }                                                                         \
                                                                               \
     void push_##nodeType##_list(nodeType##_list_t *list,                      \
-                                struct nodeType *node)                        \
+                                struct nodeType   *node)                      \
     {                                                                         \
         node->next##nodeType = list->head;                                    \
         node->prev##nodeType = NULL;                                          \
-        list->head = node;                                                    \
+        list->head           = node;                                          \
         list->size += 1;                                                      \
         if(list->tail == NULL)                                                \
         {                                                                     \
@@ -97,8 +97,8 @@
                                                                               \
     struct nodeType *pop_##nodeType##_list(nodeType##_list_t *list)           \
     {                                                                         \
-        struct nodeType *res = list->head;                                    \
-        list->head = list->head->next##nodeType;                              \
+        struct nodeType *res       = list->head;                              \
+        list->head                 = list->head->next##nodeType;              \
         list->head->prev##nodeType = NULL;                                    \
         list->size -= 1;                                                      \
         if(list->head == NULL)                                                \

@@ -22,11 +22,11 @@
  */
 typedef struct
 {
-    uint8_t allocated : 1;        /**< This page is allocated to something */
-    uint8_t kernel_page : 1;      /**< This page is a part of the kernel */
-    uint8_t kernel_heap_page : 1; /**< This page is a part of the kernel */
-    uint32_t reserved : 29;       /**< Reserved */
-} page_flags_t;                   /**< Page flags */
+    uint8_t  allocated : 1;        /**< This page is allocated to something */
+    uint8_t  kernel_page : 1;      /**< This page is a part of the kernel */
+    uint8_t  kernel_heap_page : 1; /**< This page is a part of the kernel */
+    uint32_t reserved : 29;        /**< Reserved */
+} page_flags_t;                    /**< Page flags */
 
 DEFINE_LIST(page); /**< List of pages */
 
@@ -39,10 +39,10 @@ DEFINE_LIST(page); /**< List of pages */
  */
 typedef struct page
 {
-    uint32_t vaddr_mapped; /**< Virtual address mapped to this page */
-    page_flags_t flags;    /**< Page flags */
-    DEFINE_LINK(page);     /**< Link to the next page */
-} page_t;                  /**< Page */
+    uint32_t     vaddr_mapped; /**< Virtual address mapped to this page */
+    page_flags_t flags;        /**< Page flags */
+    DEFINE_LINK(page);         /**< Link to the next page */
+} page_t;                      /**< Page */
 
 /**
  * @brief Kernel heap

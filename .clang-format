@@ -40,3 +40,7 @@ PointerAlignment: Right
 SortIncludes: false
 SpaceBeforeParens: Never
 SpacesInContainerLiterals: false
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+BinPackArguments: false
+BinPackParameters: false

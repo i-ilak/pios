@@ -48,8 +48,8 @@
  */
 typedef struct
 {
-    uint8_t channel : 4; /**< The channel to send the message to */
-    uint32_t data : 28;  /**< The data to send */
+    uint8_t  channel : 4; /**< The channel to send the message to */
+    uint32_t data : 28;   /**< The data to send */
 } mail_message_t;
 
 /**
@@ -73,8 +73,8 @@ typedef struct
 typedef struct
 {
     uint32_t reserved : 30; /**< Reserved for future use */
-    uint8_t empty : 1;      /**< The empty flag */
-    uint8_t full : 1;       /**< The full flag */
+    uint8_t  empty : 1;     /**< The empty flag */
+    uint8_t  full : 1;      /**< The full flag */
 } mail_status_t;            /**< The status of the mailbox */
 
 /**
@@ -105,9 +105,9 @@ void mailbox_send(mail_message_t msg, int channel);
  */
 typedef enum
 {
-    REQUEST = 0x00000000,          /**< Request code */
+    REQUEST          = 0x00000000, /**< Request code */
     RESPONSE_SUCCESS = 0x80000000, /**< Response success code */
-    RESPONSE_ERROR = 0x80000001    /**< Response error code */
+    RESPONSE_ERROR   = 0x80000001  /**< Response error code */
 } buffer_req_res_code_t;
 
 /**
@@ -119,7 +119,7 @@ typedef enum
  */
 typedef struct
 {
-    uint32_t size;                      /**< Size includes the size itself */
+    uint32_t              size;         /**< Size includes the size itself */
     buffer_req_res_code_t req_res_code; /**< Request or response code */
     uint32_t tags[1]; /**< The tags start here. Will use overrun to make large
                          enough */
@@ -138,9 +138,9 @@ typedef struct
  */
 typedef enum
 {
-    NULL_TAG = 0,                            /**< The end of the tag list */
-    FB_ALLOCATE_BUFFER = 0x00040001,         /**< Allocate a framebuffer */
-    FB_RELESE_BUFFER = 0x00048001,           /**< Release a framebuffer */
+    NULL_TAG                   = 0,          /**< The end of the tag list */
+    FB_ALLOCATE_BUFFER         = 0x00040001, /**< Allocate a framebuffer */
+    FB_RELESE_BUFFER           = 0x00048001, /**< Release a framebuffer */
     FB_GET_PHYSICAL_DIMENSIONS = 0x00040003, /**< Get the physical dimensions
                                                 of the framebuffer */
     FB_SET_PHYSICAL_DIMENSIONS = 0x00048003, /**< Set the physical dimensions
@@ -171,7 +171,7 @@ typedef enum
  */
 typedef struct
 {
-    void *fb_addr;    /**< The address of the framebuffer */
+    void    *fb_addr; /**< The address of the framebuffer */
     uint32_t fb_size; /**< The size of the framebuffer */
 } fb_allocate_res_t;  /**< The response value buffer for FB_ALLOCATE_BUFFER */
 
