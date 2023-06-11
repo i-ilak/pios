@@ -10,6 +10,7 @@ enable_language(C ASM)
 
 project(piOS VERSION 0.1.0)
 
+set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR}/modules)
 
