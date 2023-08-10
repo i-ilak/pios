@@ -31,6 +31,7 @@ set_target_properties(${KERNEL}.elf PROPERTIES COMPILE_FLAGS "-mcpu=${CPU} -Wall
 target_include_directories(${KERNEL}.elf PUBLIC include)
 target_link_libraries(${KERNEL}.elf PRIVATE common)
 # target_link_libraries(${KERNEL}.elf PRIVATE utils)
+target_compile_definitions(${KERNEL}.elf PRIVATE UART_MODE=1) # Activate special mode where charater output gets redirected to UART_0
 
 # Generates the binary with objcopy.
 add_custom_command(

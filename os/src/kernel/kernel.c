@@ -29,8 +29,12 @@ void kernel_main(uint64_t dtb_ptr32, uint64_t x0, uint64_t x1, uint64_t x3)
         atags = 0x100;
 
     mem_init((atag_t *)atags);
-    // uart_init();
+#if UART_MODE
+    uart_init();
+    printf("ATTENTION YOU ARE IN UART MODE\n\n");
+#else
     gpu_init();
+#endif
 
     puts("Welcome to piOS!\n----------------\n\n");
 

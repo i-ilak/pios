@@ -9,8 +9,11 @@ char getc() { return uart_getc(); }
 
 void putc(char c)
 {
+#if UART_MODE
+    uart_putc(c);
+#else
     gpu_putc(c);
-    // uart_putc(c);
+#endif
 }
 
 void puts(const char *str)
