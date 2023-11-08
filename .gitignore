@@ -12,3 +12,4 @@ cmake/copy_img_to_sd.sh
 **/export
 **/libs
 **/docs
+.cache
