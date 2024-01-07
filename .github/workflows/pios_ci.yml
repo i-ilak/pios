@@ -26,5 +26,6 @@ jobs:
 
     - name: Build binary
       run: |
+        mkdir export
         cmake -S . -B build -DCMAKE_BUILD_TYPE="${{ matrix.type }}"
         cmake --build build
