@@ -5,8 +5,6 @@ This project is trying to build a simple OS for the RaspberryPi Zero W.
 I have zero experience with embedded SW-development and unfortunately also never had a change to look at it in university. This is a hobby project that I started to get some familiarity with the subject.
 I don't really have a clear goal, but I'm using other peoples projects on the internet as a reference and will see where it will take me... I have three RaspberryPi's (Zero W, Zero 2 W, and B+) and in the end I would like the code to run on all devices.
 
-[[_TOC_]]
-
 ## ToDo
 [ ] Revist memory management... I think the code is a bit to simplisic (want to add virtual memory management.)
 
