@@ -2,12 +2,14 @@
 
 #include "common/stdlib.h"
 #include "common/string.h"
+#include "kernel/kerio.h"
+#include "kernel/uart.h"
+
+#if defined(AARCH_32)
 
 #include "kernel/atag.h"
 #include "kernel/gpu.h"
-#include "kernel/kerio.h"
 #include "kernel/memory.h"
-#include "kernel/uart.h"
 
 /*!
  * @brief Entry point for the kernel
@@ -15,11 +17,7 @@
  * @param r1 Machine ID
  * @param atags Start of ATAGS
  */
-#if defined(AARCH_32)
 void kernel_main(uint32_t r0, uint32_t arm_m_type, uint32_t atags)
-#else
-void kernel_main(uint64_t dtb_ptr32, uint64_t x0, uint64_t x1, uint64_t x3)
-#endif
 {
     (void)r0;
     (void)arm_m_type;
@@ -41,12 +39,6 @@ void kernel_main(uint64_t dtb_ptr32, uint64_t x0, uint64_t x1, uint64_t x3)
     uint32_t mem_size = get_mem_size((atag_t *)atags);
     printf("RAM size:     %d MB\n\n", mem_size / 1024 / 1024);
 
-#ifdef AARCH_32
-    printf("Architecture: AARCH_%d\n\n", 32);
-#else
-    printf("Architecture: AARCH_%d\n\n", 64);
-#endif
-
     print_atags(atags);
 
     while(1)
@@ -54,3 +46,20 @@ void kernel_main(uint64_t dtb_ptr32, uint64_t x0, uint64_t x1, uint64_t x3)
         putc(getc());
     }
 }
+#else
+
+#include "kernel/random.h"
+
+void kernel_main(uint64_t dtb_ptr32, uint64_t x0, uint64_t x1, uint64_t x3)
+{
+    printf("ATTENTION YOU ARE IN UART MODE\n\n");
+    uart_init();
+    printf("Architecture: AARCH_%d\n\n", 64);
+    rand_init();
+    printf("%d", rand(100, 500));
+    while(1)
+    {
+        putc(getc());
+    }
+}
+#endif

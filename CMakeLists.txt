@@ -3,6 +3,7 @@ cmake_minimum_required (VERSION 3.17)
 include(cmake/target.cmake)
 setup("MODEL_1" ${CMAKE_CURRENT_SOURCE_DIR})
 message("Build Info:\n\t - Arch:\t${ARCH}\n\t - Model:\t${MODEL}")
+add_compile_options(-DUART_MODE=1) # Activate special mode where charater output gets redirected to UART_0
 
 set(CMAKE_DEPENDS_USE_COMPILER ON)
 

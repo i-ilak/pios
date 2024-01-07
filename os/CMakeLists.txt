@@ -8,6 +8,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${ARCH_DIR}/linker.ld")
 
 set(SOURCES
+    src/kernel/random.c
     src/kernel/kerio.c
     src/kernel/gpu.c
     src/kernel/mailbox.c
@@ -31,7 +32,6 @@ set_target_properties(${KERNEL}.elf PROPERTIES COMPILE_FLAGS "-mcpu=${CPU} -Wall
 target_include_directories(${KERNEL}.elf PUBLIC include)
 target_link_libraries(${KERNEL}.elf PRIVATE common)
 # target_link_libraries(${KERNEL}.elf PRIVATE utils)
-target_compile_definitions(${KERNEL}.elf PRIVATE UART_MODE=1) # Activate special mode where charater output gets redirected to UART_0
 
 # Generates the binary with objcopy.
 add_custom_command(

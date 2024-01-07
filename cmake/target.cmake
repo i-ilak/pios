@@ -1,5 +1,5 @@
 macro(setup model path)
-    set(BUILD_DIR ${path}/build/bin)
+    set(BUILD_DIR ${CMAKE_BINARY_DIR}/bin)
 
     if(${model} STREQUAL "MODEL_0" 
         OR ${model} STREQUAL "MODEL_1")

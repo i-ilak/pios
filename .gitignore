@@ -1,6 +1,7 @@
 .DS_Store
 cmake/copy_img_to_sd.sh
 
+compile_commands.json
 *.img
 *.elf
 *.a
