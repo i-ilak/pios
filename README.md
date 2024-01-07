@@ -1,5 +1,5 @@
 # piOS
-[![piOS CI](https://github.com/i-ilak/pios/actions/workflows/pios_ci.yml/badge.svg)](https://github.com/i-ilak/pios/actions/workflows/pios_ci.yml)
+[![piOS CI](https://github.com/i-ilak/pios/actions/workflows/pios_ci.yml/badge.svg)](https://github.com/i-ilak/pios/actions/workflows/build.yml)
 
 This project is trying to build a simple OS for the RaspberryPi Zero W.
 I have zero experience with embedded SW-development and unfortunately also never had a change to look at it in university. This is a hobby project that I started to get some familiarity with the subject.
