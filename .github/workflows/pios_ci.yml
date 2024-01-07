@@ -1,0 +1,30 @@
+name: piOS CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        type: [Debug, Release]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: arm-none-eabi-gcc
+      uses: ryanwinter/arm-none-eabi-gcc@master
+      with:
+        release: '10-2021.10'
+
+    - name: Build binary
+      run: |
+        cmake -S . -B build -DCMAKE_BUILD_TYPE="${{ matrix.type }}"
+        cmake --build build
