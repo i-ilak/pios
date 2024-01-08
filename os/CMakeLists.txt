@@ -8,6 +8,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${ARCH_DIR}/linker.ld")
 
 set(SOURCES
+    src/kernel/delays.c
     src/kernel/random.c
     src/kernel/kerio.c
     src/kernel/gpu.c

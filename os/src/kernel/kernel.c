@@ -4,13 +4,14 @@
 #include "common/string.h"
 #include "kernel/kerio.h"
 #include "kernel/uart.h"
+#include "kernel/delays.h"
 
 #if defined(AARCH_32)
 
 #include "kernel/atag.h"
 #include "kernel/gpu.h"
 #include "kernel/memory.h"
-
+#include "kernel/random.h"
 /*!
  * @brief Entry point for the kernel
  * @param r0 0
@@ -35,7 +36,11 @@ void kernel_main(uint32_t r0, uint32_t arm_m_type, uint32_t atags)
 #endif
 
     puts("Welcome to piOS!\n----------------\n\n");
+    printf("Wait for 5 secs if it works!\n");
+    wait_msec_st(5000000);
 
+    printf("%d\n", rand(100, 500));
+    
     uint32_t mem_size = get_mem_size((atag_t *)atags);
     printf("RAM size:     %d MB\n\n", mem_size / 1024 / 1024);
 
@@ -54,9 +59,11 @@ void kernel_main(uint64_t dtb_ptr32, uint64_t x0, uint64_t x1, uint64_t x3)
 {
     printf("ATTENTION YOU ARE IN UART MODE\n\n");
     uart_init();
+    printf("Wait for 5 secs if it works!\n");
+    wait_msec(5000000);
     printf("Architecture: AARCH_%d\n\n", 64);
     rand_init();
-    printf("%d", rand(100, 500));
+    printf("%d\n", rand(100, 500));
     while(1)
     {
         putc(getc());

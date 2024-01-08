@@ -3,6 +3,18 @@
 #include "kernel/mmio.h"
 #include "common/stdlib.h"
 
+#ifndef MODEL_3
+static uint32_t next = 1;
+
+uint32_t rand(const uint32_t min, const uint32_t max)
+{
+    next = next * 1103515245 + 12345;
+    divmod_t div = divmod(next / 65536, 32768);
+    divmod_t t = divmod(div.mod, (max - min + 1)); 
+    return t.mod + min;
+}
+
+#else
 enum
 {
     RNG_CTRL        = (MMIO_BASE + 0x00104000),
@@ -28,6 +40,7 @@ unsigned int rand(unsigned int min, unsigned int max)
     // available for reading; require at least one
     while(!(mmio_read(RNG_STATUS)>>24)) asm volatile("nop");
     
-    divmod_t rand = divmod(mmio_read(RNG_DATA), (max-min));
+    divmod_t rand = divmod(mmio_read(RNG_DATA), (max-min+1));
     return rand.mod + min;
 }
+#endif
