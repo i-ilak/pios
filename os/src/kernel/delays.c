@@ -45,7 +45,7 @@ uint64_t get_system_timer()
     return ((uint64_t) h << 32) | l;
 }
 
-void wait_msec_st(uint32_t n)
+void usleep(uint32_t n)
 {
     unsigned long t=get_system_timer();
     // we must check if it's non-zero, because qemu does not emulate

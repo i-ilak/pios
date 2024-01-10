@@ -9,7 +9,7 @@ void wait_cycles(uint32_t n);
 void wait_msec(uint32_t n);
 #endif
 
-void wait_msec_st(uint32_t n);
+void usleep(uint32_t n);
 
 uint64_t get_system_timer();
 

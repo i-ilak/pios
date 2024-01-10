@@ -5,6 +5,7 @@
 #include "kernel/kerio.h"
 #include "kernel/uart.h"
 #include "kernel/delays.h"
+#include "kernel/power.h"
 
 #if defined(AARCH_32)
 
@@ -12,6 +13,7 @@
 #include "kernel/gpu.h"
 #include "kernel/memory.h"
 #include "kernel/random.h"
+
 /*!
  * @brief Entry point for the kernel
  * @param r0 0
@@ -37,7 +39,7 @@ void kernel_main(uint32_t r0, uint32_t arm_m_type, uint32_t atags)
 
     puts("Welcome to piOS!\n----------------\n\n");
     printf("Wait for 5 secs if it works!\n");
-    wait_msec_st(5000000);
+    usleep(5000000);
 
     printf("%d\n", rand(100, 500));
     
@@ -46,10 +48,16 @@ void kernel_main(uint32_t r0, uint32_t arm_m_type, uint32_t atags)
 
     print_atags(atags);
 
-    while(1)
-    {
-        putc(getc());
-    }
+    char c;
+
+    while(1) {
+            uart_puts(" 1 - power off\n 2 - reset\nChoose one: ");
+            c=getc();
+            putc(c);
+            puts("\n\n");
+            if(c=='1') power_off();
+            if(c=='2') reset();
+        }
 }
 #else
 
