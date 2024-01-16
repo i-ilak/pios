@@ -3,15 +3,15 @@
 
 So piOS might sound like I'm on a grand mission to create the ultimate Raspberry Pi operating system, 
 but truth be told, I just liked the name. What's really happening here is a journey through various online tutorials
-about baremetal coding on the Pi, which you can check out in the list below [(see here)](##Notes). 
+about baremetal coding on the Pi, which you can check out in the list below [(see here)](# Notes). 
 I'm stepping into the world of embedded software development with almost zero prior experience, and unfortunately, 
 my university days didn't touch on this domain. This project is purely a hobby, sparked by a desire to dip my toes 
 into the world of embedded systems.
 
 What is the end goal? To be honest, I don't know yet. The things that I would like to get working but are not yet:
-* Filesystem: I don't want to continue to compile everything I need into the kernel. There is a SD card so let's use it.
-* Bluethooth: Would be nice to connect an external keyboard or something like this? I have no idea how hard this is.
-* TCP/IP stack: Would be fun to try to get it connected to the internet. 
+* **Filesystem**: I don't want to continue to compile everything I need into the kernel. There is a SD card so let's use it.
+* **Bluethooth**: Would be nice to connect an external keyboard or something like this? I have no idea how hard this is.
+* **TCP/IP stack**: Would be fun to try to get it connected to the internet. 
 
 ## Notes
 Honestly, if you are interested in baremetal programming, you can probably use any of the below projects as a 
