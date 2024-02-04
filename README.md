@@ -1,8 +1,7 @@
 # piOS: Tipping my toes into baremetal programming
 [![Build](https://github.com/i-ilak/pios/actions/workflows/Build.yml/badge.svg)](https://github.com/i-ilak/pios/actions/workflows/Build.yml)
 
-So piOS might sound like I'm on a grand mission to create the ultimate Raspberry Pi operating system, 
-but truth be told, I just liked the name. What's really happening here is a journey through various online tutorials
+`piOS` is the still ongoing result of me going through various online tutorials
 about baremetal coding on the Pi, which you can check out in the list below [(see here)](#Notes). 
 I'm stepping into the world of embedded software development with almost zero prior experience, and unfortunately, 
 my university days didn't touch on this domain. This project is purely a hobby, sparked by a desire to dip my toes 
